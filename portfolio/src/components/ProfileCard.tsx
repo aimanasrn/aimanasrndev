@@ -461,8 +461,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         <section
           className="grid relative overflow-hidden"
           style={{
-            height: '80svh',
-            maxHeight: '540px',
+            width: '100%',
+            height: 'auto',
             aspectRatio: '0.718',
             borderRadius: cardRadius,
             backgroundBlendMode: 'color-dodge, normal, normal, normal',
@@ -507,7 +507,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
             <div
               className="overflow-visible"
               style={{
-                mixBlendMode: 'luminosity',
+                mixBlendMode: 'normal',
                 transform: 'translateZ(2px)',
                 gridArea: '1 / -1',
                 borderRadius: cardRadius,
@@ -516,12 +516,15 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               }}
             >
               <img
-                className="w-full absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
+                className="absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
                 src={avatarUrl}
                 alt={`${name || 'User'} avatar`}
                 loading="lazy"
                 style={{
                   transformOrigin: '50% 100%',
+                  width: '88%',
+                  bottom: '10%',
+                  height: 'auto',
                   transform:
                     'translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
                   borderRadius: cardRadius,
@@ -550,8 +553,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className="rounded-full overflow-hidden border border-white/10 flex-shrink-0"
-                      style={{ width: '48px', height: '48px' }}
+                      className="flex-shrink-0 overflow-hidden rounded-full border border-white/10"
+                      style={{ width: '40px', height: '40px' }}
                     >
                       <img
                         className="w-full h-full object-cover rounded-full"
@@ -566,13 +569,13 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                         }}
                       />
                     </div>
-                    <div className="flex flex-col items-start gap-1.5">
-                      <div className="text-sm font-medium text-white/90 leading-none">@{handle}</div>
-                      <div className="text-sm text-white/70 leading-none">{status}</div>
+                    <div className="flex min-w-0 flex-col items-start gap-1.5">
+                      <div className="text-xs font-medium leading-none text-white/90">@{handle}</div>
+                      <div className="text-xs leading-none text-white/70">{status}</div>
                     </div>
                   </div>
                   <button
-                    className="border border-white/10 rounded-lg px-4 py-3 text-xs font-semibold text-white/90 cursor-pointer backdrop-blur-[10px] transition-all duration-200 ease-out hover:border-white/40 hover:-translate-y-px"
+                    className="cursor-pointer rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-white/90 backdrop-blur-[10px] transition-all duration-200 ease-out hover:-translate-y-px hover:border-white/40"
                     onClick={handleContactClick}
                     style={{ pointerEvents: 'auto', display: 'block', gridArea: 'auto', borderRadius: '8px' }}
                     type="button"
@@ -590,7 +593,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               style={{
                 transform:
                   'translate3d(calc(var(--pointer-from-left) * -6px + 3px), calc(var(--pointer-from-top) * -6px + 3px), 0.1px)',
-                mixBlendMode: 'luminosity',
+                mixBlendMode: 'normal',
                 gridArea: '1 / -1',
                 borderRadius: cardRadius,
                 pointerEvents: 'none'
@@ -600,8 +603,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                 <h3
                   className="font-semibold m-0"
                   style={{
-                    fontSize: 'min(5svh, 3em)',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #6f6fbe)',
+                    fontSize: 'clamp(1.35rem, 4.5vw, 2.25rem)',
+                    lineHeight: 1.05,
+                    padding: '0 16px',
+                    backgroundImage: 'linear-gradient(to bottom, #F4F7FB, #4CC9F0)',
                     backgroundSize: '1em 1.5em',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -621,7 +626,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     top: '-12px',
                     fontSize: '16px',
                     margin: '0 auto',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #4a4ac0)',
+                    backgroundImage: 'linear-gradient(to bottom, #D8E7FF, #7B61FF)',
                     backgroundSize: '1em 1.5em',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',

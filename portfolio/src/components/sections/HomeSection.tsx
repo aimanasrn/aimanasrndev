@@ -25,7 +25,7 @@ export function HomeSection() {
         sparkle
       />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_22%,rgba(76,201,240,0.14),transparent_32%),radial-gradient(circle_at_15%_80%,rgba(123,97,255,0.12),transparent_28%)]" />
-      <div className="pointer-events-auto absolute right-[-8rem] top-[8%] z-[2] w-[min(82vw,25rem)] opacity-55 sm:right-[-5rem] sm:top-[6%] sm:opacity-75 lg:right-[-1rem] lg:top-1/2 lg:w-[min(30vw,26rem)] lg:-translate-y-1/2 lg:opacity-100 xl:right-20">
+      <div className="pointer-events-auto absolute right-[-5rem] top-[10%] z-[2] w-[min(76vw,20rem)] opacity-55 sm:right-[-2rem] sm:top-[8%] sm:w-[min(52vw,22rem)] sm:opacity-75 lg:right-8 lg:top-1/2 lg:w-[min(26vw,23rem)] lg:-translate-y-1/2 lg:opacity-100 xl:right-20">
         <ProfileCard
           avatarUrl="/portfolioprofile-polished.png"
           miniAvatarUrl="/portfolioprofile-polished.png"
