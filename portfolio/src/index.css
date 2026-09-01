@@ -156,6 +156,16 @@ html {
     color: #07111f;
 }
 
+.shiny-text--split .split-word,
+.shiny-text--split .split-char {
+    background-image: var(--shiny-gradient);
+    background-position: var(--shiny-position);
+    background-size: var(--shiny-size);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

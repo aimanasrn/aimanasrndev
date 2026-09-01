@@ -1,8 +1,15 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  useMotionValueEvent,
+  useTransform
+} from 'motion/react';
 
 interface ShinyTextProps {
-  text: string;
+  text?: string;
+  children?: React.ReactNode;
   disabled?: boolean;
   speed?: number;
   className?: string;
@@ -16,7 +23,8 @@ interface ShinyTextProps {
 }
 
 const ShinyText: React.FC<ShinyTextProps> = ({
-  text,
+  text = '',
+  children,
   disabled = false,
   speed = 2,
   className = '',
@@ -33,6 +41,7 @@ const ShinyText: React.FC<ShinyTextProps> = ({
   const elapsedRef = useRef(0);
   const lastTimeRef = useRef<number | null>(null);
   const directionRef = useRef(direction === 'left' ? 1 : -1);
+  const textRef = useRef<HTMLSpanElement>(null);
 
   const animationDuration = speed * 1000;
   const delayDuration = delay * 1000;
@@ -100,6 +109,10 @@ const ShinyText: React.FC<ShinyTextProps> = ({
   // Transform: p=0 -> 150% (shine off right), p=100 -> -50% (shine off left)
   const backgroundPosition = useTransform(progress, p => `${150 - p * 2}% center`);
 
+  useMotionValueEvent(backgroundPosition, 'change', latest => {
+    textRef.current?.style.setProperty('--shiny-position', latest);
+  });
+
   const handleMouseEnter = useCallback(() => {
     if (pauseOnHover) setIsPaused(true);
   }, [pauseOnHover]);
@@ -108,22 +121,30 @@ const ShinyText: React.FC<ShinyTextProps> = ({
     if (pauseOnHover) setIsPaused(false);
   }, [pauseOnHover]);
 
+  const gradient = `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`;
   const gradientStyle: React.CSSProperties = {
-    backgroundImage: `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`,
+    backgroundImage: gradient,
     backgroundSize: '200% auto',
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',
     WebkitTextFillColor: 'transparent'
   };
+  const splitGradientStyle = {
+    '--shiny-gradient': gradient,
+    '--shiny-position': '150% center',
+    '--shiny-size': '200% auto'
+  } as React.CSSProperties;
+  const hasSplitContent = children != null;
 
   return (
     <motion.span
-      className={`inline-block ${className}`}
-      style={{ ...gradientStyle, backgroundPosition }}
+      ref={textRef}
+      className={`shiny-text ${hasSplitContent ? 'shiny-text--split' : ''} inline-block ${className}`}
+      style={hasSplitContent ? splitGradientStyle : { ...gradientStyle, backgroundPosition }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {text}
+      {children ?? text}
     </motion.span>
   );
 };
