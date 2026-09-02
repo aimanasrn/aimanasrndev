@@ -121,7 +121,7 @@ export function ExpertiseSection() {
     >
       <PageContainer>
         <SplitText
-          text="02 · Expertise"
+          text="03 · Expertise"
           tag="p"
           splitType="words"
           textAlign="left"

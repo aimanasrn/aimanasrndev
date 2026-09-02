@@ -5,6 +5,7 @@ import GlareHover from "@/components/GlareHover"
 import { PageContainer } from "@/components/PageContainer"
 import ShinyText from "@/components/ShinyText"
 import SplitText from "@/components/SplitText"
+import StarBorder from "@/components/StarBorder"
 
 export function HomeSection() {
   return (
@@ -138,12 +139,19 @@ export function HomeSection() {
               delay={0.5}
               className="inline-flex"
             >
-              <a
+              <StarBorder
+                as="a"
                 href="#contact"
-                className="inline-flex items-center gap-3 rounded-full border border-[#C7D5E2]/25 px-5 py-3 text-sm font-medium text-[#F4F7FB] transition-colors hover:border-[#4CC9F0] hover:text-[#4CC9F0]"
+                color="#4CC9F0"
+                secondaryColor="#7B61FF"
+                speed="5s"
+                backgroundColor="transparent"
+                textColor="#F4F7FB"
+                borderColor="rgba(199, 213, 226, 0.25)"
+                className="rounded-full text-sm font-medium transition-transform hover:-translate-y-0.5"
               >
                 Get in touch <span aria-hidden="true">↗</span>
-              </a>
+              </StarBorder>
             </AnimatedContent>
           </div>
           <SplitText

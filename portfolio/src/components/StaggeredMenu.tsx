@@ -94,8 +94,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       const offscreen = position === 'left' ? -100 : 100;
       gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 });
       if (preContainer) {
-        gsap.set(preContainer, { xPercent: 0, opacity: 1 });
+        gsap.set(preContainer, { xPercent: 0, opacity: 1, visibility: 'hidden' });
       }
+      gsap.set(panel, { visibility: 'hidden' });
 
       gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
       gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
@@ -130,6 +131,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const offscreen = position === 'left' ? -100 : 100;
     const layerStates = layers.map(el => ({ el, start: offscreen }));
     const panelStart = offscreen;
+
+    gsap.set(panel, { visibility: 'visible' });
+    if (preLayersRef.current) gsap.set(preLayersRef.current, { visibility: 'visible' });
 
     if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
     if (numberEls.length) gsap.set(numberEls, { '--sm-num-opacity': 0 });
@@ -244,6 +248,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+
+        gsap.set(panel, { visibility: 'hidden' });
+        if (preLayersRef.current) gsap.set(preLayersRef.current, { visibility: 'hidden' });
 
         busyRef.current = false;
       }
@@ -408,7 +415,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   return (
     <div
-      className={`sm-scope pointer-events-none z-40 ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
+      className={`sm-scope pointer-events-none z-[200] ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
     >
       <div
         className={

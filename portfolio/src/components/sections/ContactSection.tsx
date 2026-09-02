@@ -8,7 +8,7 @@ export function ContactSection() {
     >
       <PageContainer>
         <p className="text-xs tracking-[0.35em] text-[#9CAFC3] uppercase">
-          04 · Contact
+          05 · Contact
         </p>
         <h2 className="mt-6 max-w-4xl text-4xl leading-tight font-medium tracking-[-0.05em] sm:text-7xl">
           <a

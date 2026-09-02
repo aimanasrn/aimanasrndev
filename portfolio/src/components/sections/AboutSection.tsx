@@ -56,7 +56,7 @@ export function AboutSection() {
     >
       <PageContainer>
         <SplitText
-          text="01 · About"
+          text="02 · About"
           tag="p"
           splitType="words"
           textAlign="left"

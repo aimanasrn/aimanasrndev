@@ -6,13 +6,13 @@ import { AboutSection } from "@/components/sections/AboutSection"
 import { ContactSection } from "@/components/sections/ContactSection"
 import { ExpertiseSection } from "@/components/sections/ExpertiseSection"
 import { HomeSection } from "@/components/sections/HomeSection"
-import { WorkSection } from "@/components/sections/WorkSection"
+import { ProjectsSection } from "@/components/sections/ProjectsSection"
 
 const navigationItems: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home", link: "#home" },
   { label: "About", ariaLabel: "Go to about", link: "#about" },
   { label: "Expertise", ariaLabel: "Go to expertise", link: "#expertise" },
-  { label: "Work", ariaLabel: "Go to selected work", link: "#projects" },
+  { label: "Projects", ariaLabel: "Go to projects", link: "#projects" },
   { label: "Contact", ariaLabel: "Go to contact", link: "#contact" },
 ]
 
@@ -37,7 +37,7 @@ export function App() {
       <HomeSection />
       <AboutSection />
       <ExpertiseSection />
-      <WorkSection />
+      <ProjectsSection />
       <ContactSection />
     </main>
   )
