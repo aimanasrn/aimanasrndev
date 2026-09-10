@@ -110,8 +110,8 @@ export function AboutSection() {
         </div>
 
         <a
-          href="/resume.pdf"
-          download
+          href="/Muhammad%20Aiman%20Bin%20Kanasronsham_resume.pdf"
+          download="Muhammad Aiman Bin Kanasronsham_resume.pdf"
           className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#4CC9F0] px-5 py-3 text-sm font-medium text-[#07111F] transition-transform hover:-translate-y-0.5 hover:bg-[#72D5F5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4CC9F0]"
         >
           <SplitText

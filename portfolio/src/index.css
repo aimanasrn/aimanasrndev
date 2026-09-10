@@ -149,6 +149,69 @@
 
 html {
     color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+}
+
+/* Portfolio rhythm: shared typography, surfaces, and responsive gutters. */
+:root {
+    --portfolio-accent: #4cc9f0;
+    --portfolio-surface: #0e1b2a;
+    --portfolio-border: #c7d5e224;
+    --portfolio-muted: #9cafc3;
+}
+body { margin: 0; background: #07111f; -webkit-font-smoothing: antialiased; }
+.portfolio { overflow-x: clip; }
+.portfolio > section:not(#home) { padding-block: clamp(4.5rem, 7.5vw, 7.5rem); }
+.portfolio section h2 { font-size: clamp(2rem, 3.9vw, 3.5rem); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; max-width: 22ch; }
+.portfolio section h3 { text-wrap: balance; }
+.portfolio section p { text-wrap: pretty; }
+.portfolio section .page-container > p:first-child,
+.portfolio section .page-container > div > p:first-child:not(.hero-copy > p) { letter-spacing: .17em; }
+.portfolio :is(a, button):focus-visible { outline: 2px solid var(--portfolio-accent); outline-offset: 5px; border-radius: 6px; }
+.skip-link { position: fixed; top: -80px; left: 24px; z-index: 300; padding: 12px 20px; background: #4cc9f0; color: #07111f; border-radius: 12px; }
+.skip-link:focus { top: 16px; }
+.hero-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, .85fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; min-height: min(900px, 100svh); padding-top: 160px; padding-bottom: 72px; }
+.hero-copy { grid-column: 1; grid-row: 1; }
+.hero-portrait { grid-column: 2; grid-row: 1; width: 100%; max-width: 390px; justify-self: end; }
+.hero-title { font-size: clamp(2.6rem, 4.65vw, 4.5rem); line-height: 1.04; letter-spacing: -.055em; }
+.hero-copy > p:first-child { max-width: 34ch; color: #c7d5e2; }
+.hero-copy > p:last-child { line-height: 1.9; font-size: 11px; letter-spacing: .08em; }
+#about { min-height: auto; }
+#experience article { border-color: var(--portfolio-border); border-radius: 24px; box-shadow: none; }
+#experience article h3 { font-size: clamp(1.45rem, 2.3vw, 2rem); }
+#experience article > div:first-child > p { max-width: 65ch; text-transform: none; letter-spacing: .025em; font-size: 13px; line-height: 1.6; }
+#experience article > div:first-child > span { white-space: nowrap; }
+#experience article > p:first-of-type { text-decoration: none; }
+#experience article li { font-size: 12px; padding: 6px 10px; }
+#experience > .page-container > div:last-child::before { opacity: .55; }
+.ai-workflow li { flex-direction: column; gap: 16px; min-width: 0; padding: 18px 14px; }
+.ai-workflow li > span:first-child { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #4cc9f04a; border-radius: 50%; font-size: 11px; }
+.ai-workflow li > span:last-child { overflow-wrap: anywhere; font-size: 13px; line-height: 1.6; }
+#capabilities article { padding: clamp(20px, 2.1vw, 32px); border-radius: 20px; }
+#capabilities article h3 { font-size: clamp(1.25rem, 1.8vw, 1.65rem); }
+#capabilities article li { font-size: 12px; padding: 6px 10px; }
+#contact .page-container > div { align-items: center; }
+#contact { border-bottom: 1px solid var(--portfolio-border); }
+.portfolio-footer a { padding-block: 8px; }
+@media (max-width: 767px) {
+    #stack [data-chip] { padding: 10px 12px; font-size: 12px; gap: 8px; }
+    #stack [data-chip] img { width: 22px; height: 22px; }
+    #stack [role="list"] { padding: 16px 12px; gap: 8px; }
+    .hero-layout { grid-template-columns: 1fr; padding-top: 140px; padding-bottom: 56px; gap: 40px; min-height: auto; }
+    .hero-portrait { grid-column: 1; grid-row: 2; max-width: 340px; justify-self: center; }
+    .hero-title { font-size: clamp(2.5rem, 9.5vw, 3.8rem); }
+    #experience article { padding: 22px 18px; }
+    #experience .page-container > div:last-child > div { padding-left: 42px; }
+    #experience .page-container > div:last-child > div > span { width: 30px; height: 30px; font-size: 10px; }
+    #experience .page-container > div:last-child::before { left: 15px; }
+    .ai-workflow { grid-template-columns: repeat(6, minmax(148px, 1fr)); overflow-x: auto; padding: 8px 4px 20px; scroll-snap-type: x mandatory; }
+    .ai-workflow li { scroll-snap-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .portfolio *, .portfolio *::before, .portfolio *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    .portfolio .blur-text > span { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
 
 ::selection {

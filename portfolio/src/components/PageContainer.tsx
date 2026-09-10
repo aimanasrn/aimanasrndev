@@ -6,7 +6,7 @@ export function PageContainer({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-[1600px] px-6 sm:px-12 lg:px-20",
+        "page-container mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16",
         className
       )}
       {...props}

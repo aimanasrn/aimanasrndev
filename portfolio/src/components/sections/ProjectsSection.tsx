@@ -6,6 +6,24 @@ import SplitText from "@/components/SplitText"
 
 const projects = [
   {
+    name: "Suka Room & Homestay",
+    category: "Full-Stack Project",
+    year: 2026,
+    capabilities: [
+      "Bilingual BM/EN booking",
+      "Accommodation availability calendar",
+      "Admin booking management",
+      "Payment records and PDF invoices",
+      "WhatsApp enquiries",
+    ],
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase"],
+    image: "/projects/sukaroomhomestay.png",
+    imageAlt:
+      "Suka Room & Homestay booking website showing accommodation options, availability search, and bilingual navigation",
+    imageWidth: 1920,
+    imageHeight: 1080,
+  },
+  {
     name: "SoftSpend",
     category: "Full-Stack",
     status: "Live",
@@ -120,7 +138,7 @@ export function ProjectsSection() {
           />
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-[#9CAFC3] sm:text-lg sm:leading-8">
-            Four products shaped around clear problems, thoughtful interfaces,
+            Five products shaped around clear problems, thoughtful interfaces,
             and dependable engineering.
           </p>
         </div>

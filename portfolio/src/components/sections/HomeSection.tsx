@@ -12,7 +12,7 @@ export function HomeSection() {
     <section id="home" className="relative min-h-screen overflow-hidden">
       <DotField
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-80"
+        className="pointer-events-none absolute inset-0 z-0 opacity-30"
         dotRadius={1.4}
         dotSpacing={16}
         cursorRadius={280}
@@ -25,8 +25,8 @@ export function HomeSection() {
         sparkle
       />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_22%,rgba(76,201,240,0.14),transparent_32%),radial-gradient(circle_at_15%_80%,rgba(123,97,255,0.12),transparent_28%)]" />
-      <PageContainer className="relative z-[1] flex min-h-screen items-end pt-32 pb-16">
-        <div className="pointer-events-auto absolute top-[10%] right-[-5rem] z-[2] w-[min(76vw,20rem)] opacity-55 sm:top-[8%] sm:right-[-2rem] sm:w-[min(52vw,22rem)] sm:opacity-75 lg:top-1/2 lg:right-20 lg:w-[min(26vw,23rem)] lg:-translate-y-1/2 lg:opacity-100">
+      <PageContainer className="hero-layout relative z-[1]">
+        <div className="hero-portrait pointer-events-auto">
           <AnimatedContent
             direction="horizontal"
             distance={96}
@@ -60,7 +60,7 @@ export function HomeSection() {
             </GlareHover>
           </AnimatedContent>
         </div>
-        <div className="pointer-events-none relative z-10 max-w-5xl">
+        <div className="hero-copy relative z-10 min-w-0">
           <p className="mb-6 text-sm font-medium tracking-[0.02em] sm:text-base">
             <ShinyText
               className="font-medium tracking-[0.02em]"
@@ -82,7 +82,7 @@ export function HomeSection() {
           </p>
           <h1
             aria-label="Building modern products & enterprise-grade systems."
-            className="max-w-5xl text-5xl leading-[0.95] font-semibold tracking-[-0.06em] sm:text-7xl lg:text-8xl"
+            className="hero-title font-medium"
           >
             <BlurText
               text="Building"
