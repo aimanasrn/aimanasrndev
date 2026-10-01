@@ -2,14 +2,16 @@ import { ArrowUpRight, Code2, Link2, Mail } from "lucide-react"
 
 import AnimatedContent from "@/components/AnimatedContent"
 import BlurText from "@/components/BlurText"
+import { BusinessDetails } from "@/components/BusinessDetails"
 import { PageContainer } from "@/components/PageContainer"
 import SplitText from "@/components/SplitText"
+import { business, emailHref, policyLinks } from "@/content/business"
 
 const contactLinks = [
   {
     label: "Email",
-    value: "aimanasrn@gmail.com",
-    href: "mailto:aimanasrn@gmail.com",
+    value: business.email,
+    href: emailHref,
     icon: Mail,
   },
   {
@@ -64,7 +66,7 @@ export function ContactSection() {
               to solve? I’d be happy to talk through it.
             </p>
             <a
-              href="mailto:aimanasrn@gmail.com"
+              href={emailHref}
               className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#4CC9F0] px-5 py-3 text-sm font-medium text-[#07111F] transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-[#72D5F5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4CC9F0]"
             >
               Start a conversation{" "}
@@ -95,7 +97,7 @@ export function ContactSection() {
                     <span className="block text-xs tracking-[0.15em] text-[#9CAFC3] uppercase">
                       {label}
                     </span>
-                    <span className="mt-1 block truncate text-sm text-[#F4F7FB] sm:text-base">
+                    <span className="mt-1 block text-sm leading-6 wrap-anywhere text-[#F4F7FB] sm:text-base">
                       {value}
                     </span>
                   </span>
@@ -107,6 +109,28 @@ export function ContactSection() {
               ))}
             </div>
           </AnimatedContent>
+        </div>
+        <div className="contact-business-row">
+          <div>
+            <h3>Business information</h3>
+            <p className="contact-business-owner">{business.owner}</p>
+            <BusinessDetails />
+          </div>
+          <div className="contact-policies">
+            <h3>Before we work together</h3>
+            <p>
+              Clear expectations, from the first conversation to the final
+              handover.
+            </p>
+            <nav aria-label="Contact policies">
+              {policyLinks.slice(0, 3).map(({ slug, label }) => (
+                <a key={slug} href={`#policies/${slug}`}>
+                  {label}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              ))}
+            </nav>
+          </div>
         </div>
       </PageContainer>
     </section>

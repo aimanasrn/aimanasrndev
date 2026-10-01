@@ -1,3 +1,7 @@
+import { useEffect, useSyncExternalStore } from "react"
+
+import { PolicyPage } from "@/components/PolicyPage"
+import { SiteFooter } from "@/components/SiteFooter"
 import StaggeredMenu, {
   type StaggeredMenuItem,
   type StaggeredMenuSocialItem,
@@ -9,6 +13,7 @@ import { ExperienceSection } from "@/components/sections/ExperienceSection"
 import { HomeSection } from "@/components/sections/HomeSection"
 import { ProjectsSection } from "@/components/sections/ProjectsSection"
 import { StackSection } from "@/components/sections/StackSection"
+import { getPolicySlug, policyLinks } from "@/content/business"
 
 const navigationItems: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home", link: "#home" },
@@ -16,6 +21,11 @@ const navigationItems: StaggeredMenuItem[] = [
   { label: "Experience", ariaLabel: "Go to experience", link: "#experience" },
   { label: "Projects", ariaLabel: "Go to projects", link: "#projects" },
   { label: "Contact", ariaLabel: "Go to contact", link: "#contact" },
+  {
+    label: "Policies",
+    ariaLabel: "Read website policies",
+    link: "#policies/refund",
+  },
 ]
 
 const socialItems: StaggeredMenuSocialItem[] = [
@@ -26,13 +36,57 @@ const socialItems: StaggeredMenuSocialItem[] = [
   },
 ]
 
+function subscribeToLocation(callback: () => void) {
+  window.addEventListener("hashchange", callback)
+  window.addEventListener("popstate", callback)
+  return () => {
+    window.removeEventListener("hashchange", callback)
+    window.removeEventListener("popstate", callback)
+  }
+}
+
+const getHash = () => window.location.hash
+
 export function App() {
+  const hash = useSyncExternalStore(subscribeToLocation, getHash, () => "")
+  const policySlug = getPolicySlug(hash)
+
+  useEffect(() => {
+    document.title = policySlug
+      ? `${policyLinks.find(({ slug }) => slug === policySlug)!.label} — AIMANASRN`
+      : "Muhammad Aiman — Software Developer"
+    const frame = requestAnimationFrame(() => {
+      if (policySlug) {
+        window.scrollTo({ top: 0, behavior: "instant" })
+        document
+          .getElementById("policy-heading")
+          ?.focus({ preventScroll: true })
+      } else if (hash && !hash.startsWith("#policies/")) {
+        document
+          .getElementById(hash.slice(1))
+          ?.scrollIntoView({ behavior: "instant" })
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [hash, policySlug])
+
   return (
     <main
       id="main-content"
       className="portfolio min-h-screen scroll-smooth bg-[#07111F] text-[#F4F7FB]"
     >
-      <a className="skip-link" href="#home">
+      <a
+        className="skip-link"
+        href={policySlug ? "#policy-heading" : "#home"}
+        onClick={
+          policySlug
+            ? (event) => {
+                event.preventDefault()
+                document.getElementById("policy-heading")?.focus()
+              }
+            : undefined
+        }
+      >
         Skip to content
       </a>
       <StaggeredMenu
@@ -45,19 +99,20 @@ export function App() {
         accentColor="#4CC9F0"
       />
 
-      <HomeSection />
-      <AboutSection />
-      <ExperienceSection />
-      <StackSection />
-      <ExpertiseSection />
-      <ProjectsSection />
-      <ContactSection />
-      <footer className="portfolio-footer page-container mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-[#9CAFC3] sm:px-10 lg:px-16">
-        <p>© {new Date().getFullYear()} Muhammad Aiman</p>
-        <a href="#home" className="transition-colors hover:text-[#4CC9F0]">
-          Back to top ↑
-        </a>
-      </footer>
+      {policySlug ? (
+        <PolicyPage slug={policySlug} />
+      ) : (
+        <>
+          <HomeSection />
+          <AboutSection />
+          <ExperienceSection />
+          <StackSection />
+          <ExpertiseSection />
+          <ProjectsSection />
+          <ContactSection />
+        </>
+      )}
+      <SiteFooter />
     </main>
   )
 }

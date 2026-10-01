@@ -557,14 +557,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-header pointer-events-none absolute top-0 left-0 z-20 flex w-full items-center justify-between bg-transparent p-[2em]"
           aria-label="Main navigation header"
         >
-          <div
+          <a
             className="sm-logo pointer-events-auto flex items-center select-none"
-            aria-label="Logo"
+            href="#home"
+            aria-label="AIMANASRN home"
+            onClick={closeMenu}
           >
             {logoUrl ? (
               <img
                 src={logoUrl}
-                alt="Logo"
+                alt="AIMANASRN"
                 className="sm-logo-img block h-20 w-auto object-contain"
                 draggable={false}
                 width={110}
@@ -575,7 +577,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 AIMANASRN
               </span>
             )}
-          </div>
+          </a>
 
           <button
             ref={toggleBtnRef}
