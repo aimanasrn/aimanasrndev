@@ -19,6 +19,7 @@ export interface StaggeredMenuProps {
   displayItemNumbering?: boolean
   className?: string
   logoUrl?: string
+  hideLogo?: boolean
   menuButtonColor?: string
   openMenuButtonColor?: string
   accentColor?: string
@@ -38,6 +39,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displayItemNumbering = true,
   className,
   logoUrl = "",
+  hideLogo = false,
   menuButtonColor = "#F4F7FB",
   openMenuButtonColor = "#4CC9F0",
   changeMenuColorOnOpen = true,
@@ -559,6 +561,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         >
           <a
             className="sm-logo pointer-events-auto flex items-center select-none"
+            data-logo-hidden={hideLogo}
+            aria-hidden={hideLogo}
+            tabIndex={hideLogo ? -1 : undefined}
             href="#home"
             aria-label="AIMANASRN home"
             onClick={closeMenu}
@@ -567,10 +572,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               <img
                 src={logoUrl}
                 alt="AIMANASRN"
-                className="sm-logo-img block h-20 w-auto object-contain"
+                className="sm-logo-img block size-16 rounded-full object-cover"
                 draggable={false}
-                width={110}
-                height={24}
+                width={64}
+                height={64}
               />
             ) : (
               <span className="sm-wordmark text-sm font-semibold tracking-[0.2em] text-white">
@@ -655,7 +660,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       onClick={(event) => handleItemClick(event, it.link)}
                     >
                       <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
-                        {it.label}
+                        <span className="sm-panel-itemText inline-block">{it.label}</span>
                       </span>
                     </a>
                   </li>
@@ -709,9 +714,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
 .sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 2em; background: transparent; pointer-events: none; z-index: 20; }
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
-.sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
+.sm-scope .sm-logo { display: flex; align-items: center; user-select: none; opacity: 1; visibility: visible; transition: opacity .4s ease, visibility 0s linear, scale var(--hover-duration) var(--hover-ease); }
+.sm-scope .sm-logo[data-logo-hidden="true"] { opacity: 0; visibility: hidden; pointer-events: none; transition-delay: 0s, .4s, 0s; }
+@media (prefers-reduced-motion: reduce) {
+  .sm-scope .sm-logo { transition: none; }
+  .sm-scope .sm-logo[data-logo-hidden="true"] { transition-delay: 0s; }
+}
 .sm-scope .sm-wordmark { color: #F4F7FB; font-size: 15px; font-weight: 650; letter-spacing: .18em; }
-.sm-scope .sm-logo-img { display: block; height: 80px; width: auto; object-fit: contain; }
+.sm-scope .sm-logo-img { display: block; height: 64px; width: 64px; border-radius: 50%; object-fit: cover; }
 .sm-scope .sm-toggle { position: relative; display: inline-flex; align-items: center; gap: 0.3rem; background: transparent; border: none; cursor: pointer; color: #e9e9ef; font-weight: 500; line-height: 1; overflow: visible; }
 .sm-scope .sm-toggle:focus-visible { outline: 2px solid #ffffffaa; outline-offset: 4px; border-radius: 4px; }
 .sm-scope .sm-line:last-of-type { margin-top: 6px; }
@@ -754,6 +764,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-item { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; width: 100%; padding: 14px 0; font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -.045em; border-bottom: 1px solid #c7d5e214; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { position: static; flex: none; font-size: 12px; letter-spacing: .08em; }
 .sm-scope .sm-panel-item:focus-visible { color: var(--sm-accent); outline-offset: -2px; }
+.sm-scope :is(.sm-toggle, .sm-panel-item, .sm-socials-list .sm-socials-link, .sm-panel-itemText) {
+  transition: color var(--hover-duration) var(--hover-ease), background-color var(--hover-duration) var(--hover-ease), border-color var(--hover-duration) var(--hover-ease), box-shadow var(--hover-duration) var(--hover-ease), opacity var(--hover-duration) var(--hover-ease), translate var(--hover-duration) var(--hover-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sm-scope .sm-toggle:hover { translate: 0 -2px; border-color: #4cc9f080; background: #102a43; box-shadow: 0 8px 24px #4cc9f01a; }
+  .sm-scope .sm-toggle:active { translate: 0 0; }
+  .sm-scope .sm-logo:not([data-logo-hidden="true"]):hover { scale: 1.04; }
+  .sm-scope .sm-panel-item:hover .sm-panel-itemText { translate: 4px 0; }
+  .sm-scope .sm-socials-link:hover { translate: 0 -2px; }
+}
 @media (max-width: 640px) {
   .sm-scope .staggered-menu-panel { padding: 128px 24px 32px; }
   .sm-scope .sm-panel-item { font-size: clamp(26px, 8vw, 42px); }

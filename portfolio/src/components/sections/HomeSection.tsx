@@ -1,7 +1,6 @@
 import AnimatedContent from "@/components/AnimatedContent"
-import DotField from "@/components/DotField"
+import PatternWaves from "@/components/PatternWaves"
 import BlurText from "@/components/BlurText"
-import GlareHover from "@/components/GlareHover"
 import { PageContainer } from "@/components/PageContainer"
 import ShinyText from "@/components/ShinyText"
 import SplitText from "@/components/SplitText"
@@ -10,21 +9,21 @@ import StarBorder from "@/components/StarBorder"
 export function HomeSection() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
-      <DotField
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-30"
-        dotRadius={1.4}
-        dotSpacing={16}
-        cursorRadius={280}
-        cursorForce={0.08}
-        glowRadius={220}
-        gradientFrom="rgba(76, 201, 240, 0.42)"
-        gradientTo="rgba(123, 97, 255, 0.16)"
-        glowColor="#4CC9F0"
-        waveAmplitude={0.35}
-        sparkle
-      />
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_22%,rgba(76,201,240,0.14),transparent_32%),radial-gradient(circle_at_15%_80%,rgba(123,97,255,0.12),transparent_28%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <PatternWaves
+          preset="silk"
+          color="#4CC9F0"
+          backgroundColor="#07111F"
+          opacity={0.65}
+          spacing={10}
+          speed={0.3}
+          fade="bottom"
+          fadeSize={0.35}
+          cursorStrength={0.35}
+          intro={false}
+        />
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.65),rgba(7,17,31,0.12)),linear-gradient(0deg,#07111F,transparent_25%)]" />
       <PageContainer className="hero-layout relative z-[1]">
         <div className="hero-portrait pointer-events-auto">
           <AnimatedContent
@@ -39,25 +38,18 @@ export function HomeSection() {
             delay={0.15}
             className="h-full w-full"
           >
-            <GlareHover
-              width="100%"
-              height="auto"
-              background="#0E1B2A"
-              borderRadius="28px"
-              borderColor="rgba(199, 213, 226, 0.18)"
-              glareColor="#4CC9F0"
-              glareOpacity={0.5}
-              glareAngle={-35}
-              glareSize={140}
-              transitionDuration={900}
-              className="aspect-[4/5] shadow-[0_24px_80px_rgba(7,17,31,0.55)]"
+            <div
+              className="hero-photo aspect-square w-full overflow-hidden rounded-full border border-[#C7D5E2]/18 bg-[#0E1B2A] shadow-[0_24px_80px_rgba(7,17,31,0.55)]"
             >
               <img
-                src="/professionalProfile1.png"
+                src="/aimanasrndevprofile.png"
                 alt="Muhammad Aiman"
-                className="h-full w-full object-cover"
+                width={1254}
+                height={1254}
+                fetchPriority="high"
+                className="h-full w-full rounded-full object-cover"
               />
-            </GlareHover>
+            </div>
           </AnimatedContent>
         </div>
         <div className="hero-copy relative z-10 min-w-0">
@@ -155,7 +147,7 @@ export function HomeSection() {
             </AnimatedContent>
           </div>
           <SplitText
-            text="React · TypeScript · Node.js · PostgreSQL · Laravel · DB2 · Next.js"
+            text="React · Next.js · Vue · Nuxt · Angular · Laravel · PostgreSQL"
             tag="p"
             splitType="words"
             textAlign="left"

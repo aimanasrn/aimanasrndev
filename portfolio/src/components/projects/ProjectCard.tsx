@@ -8,7 +8,9 @@ export interface Project {
   category: string
   status?: string
   year: number
+  description?: string
   capabilities: readonly string[]
+  plannedEnhancements?: readonly string[]
   technologies: readonly string[]
   image: string
   imageAlt: string
@@ -54,7 +56,7 @@ export function ProjectCard({
           decoding="async"
           draggable={false}
           className={cn(
-            "h-full w-full object-cover object-top transition-transform duration-700 ease-out select-none [-webkit-user-drag:none] motion-reduce:transition-none",
+            "h-full w-full object-cover object-top transition-transform duration-[450ms] ease-out select-none [-webkit-user-drag:none] motion-reduce:transition-none",
             isActive &&
               "group-focus-within:scale-[1.035] group-hover:scale-[1.035]"
           )}
@@ -107,12 +109,12 @@ export function ProjectCard({
         reduceMotion || !isActive
           ? undefined
           : {
-              y: -10,
-              scale: 1.018,
+              y: -4,
+              scale: 1.01,
               rotate: 0,
             }
       }
-      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         "group relative transform-gpu overflow-hidden rounded-[1.35rem] border border-[#C7D5E2]/18 bg-[#0B1726] shadow-[0_28px_70px_rgba(0,0,0,0.34)] transition-[border-color,box-shadow] duration-300 hover:border-[#4CC9F0]/38 hover:shadow-[0_34px_85px_rgba(0,0,0,0.42)] motion-reduce:transform-none motion-reduce:transition-none",
         rotationClassName

@@ -84,7 +84,7 @@ export function ProjectDetailsModal({
 
   return createPortal(
     <motion.div
-      className="fixed inset-0 z-[100] grid overflow-y-auto px-4 py-6 sm:px-6 sm:py-10"
+      className="fixed inset-0 z-[250] grid overflow-y-auto px-4 py-6 sm:px-6 sm:py-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -173,6 +173,12 @@ export function ProjectDetailsModal({
               ) : null}
             </div>
 
+            {project.description ? (
+              <p className="mt-6 text-sm leading-7 text-[#C7D5E2] sm:text-base">
+                {project.description}
+              </p>
+            ) : null}
+
             <div className="mt-8">
               <p className="font-mono text-[0.68rem] tracking-[0.16em] text-[#6F859C] uppercase">
                 Main capabilities
@@ -189,6 +195,22 @@ export function ProjectDetailsModal({
                 ))}
               </ul>
             </div>
+
+            {project.plannedEnhancements?.length ? (
+              <div className="mt-8 border-t border-[#C7D5E2]/12 pt-6">
+                <p className="font-mono text-[0.68rem] tracking-[0.16em] text-[#6F859C] uppercase">
+                  Planned enhancements
+                </p>
+                <p className="mt-3 text-sm leading-6 text-[#9CAFC3]">
+                  Planned features; implementation has not yet been confirmed.
+                </p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-[#C7D5E2]">
+                  {project.plannedEnhancements.map((enhancement) => (
+                    <li key={enhancement}>{enhancement}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
 
           <div className="border-t border-[#C7D5E2]/12 pt-7 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">

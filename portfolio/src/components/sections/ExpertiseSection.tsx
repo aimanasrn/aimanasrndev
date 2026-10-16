@@ -9,22 +9,23 @@ const capabilityGroups = [
     tools: [
       "React",
       "Next.js",
+      "React Native",
       "TypeScript",
       "JavaScript",
-      "Angular",
-      "Vue.js",
-      "React Native",
       "Tailwind CSS",
+      "Vue.js",
+      "Nuxt",
+      "Angular",
     ],
   },
   {
     title: "Backend",
     tools: [
-      "Laravel",
-      "Inertia.js",
       "Node.js",
       "Express.js",
       "PHP",
+      "Laravel",
+      "Inertia.js",
       "RESTful APIs",
       "C",
       "C#",
@@ -32,7 +33,7 @@ const capabilityGroups = [
   },
   {
     title: "Database",
-    tools: ["PostgreSQL", "MySQL", "SQLite", "Supabase", "DB2", "SQL"],
+    tools: ["PostgreSQL", "Supabase", "MySQL", "SQLite", "DB2", "SQL"],
   },
   {
     title: "Testing & tools",

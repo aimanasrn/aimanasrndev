@@ -67,7 +67,7 @@ export function ContactSection() {
             </p>
             <a
               href={emailHref}
-              className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#4CC9F0] px-5 py-3 text-sm font-medium text-[#07111F] transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-[#72D5F5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4CC9F0]"
+              className="contact-cta mt-10 inline-flex items-center gap-3 rounded-full bg-[#4CC9F0] px-5 py-3 text-sm font-medium text-[#07111F] transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-[#72D5F5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4CC9F0]"
             >
               Start a conversation{" "}
               <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -88,7 +88,7 @@ export function ContactSection() {
                   rel={
                     href.startsWith("http") ? "noopener noreferrer" : undefined
                   }
-                  className={`group flex items-center gap-4 p-5 transition-colors hover:bg-[#102A43] sm:p-6 ${index > 0 ? "border-t border-[#C7D5E2]/10" : ""}`}
+                  className={`contact-link group flex items-center gap-4 p-5 transition-colors hover:bg-[#102A43] sm:p-6 ${index > 0 ? "border-t border-[#C7D5E2]/10" : ""}`}
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[#4CC9F0]/25 bg-[#4CC9F0]/10 text-[#4CC9F0]">
                     <Icon className="size-4" aria-hidden="true" />

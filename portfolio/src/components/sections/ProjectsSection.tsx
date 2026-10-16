@@ -6,6 +6,36 @@ import SplitText from "@/components/SplitText"
 
 const projects = [
   {
+    name: "DidikFlow",
+    category: "Education Management SaaS",
+    year: 2026,
+    description:
+      "DidikFlow is an education management SaaS platform built with Next.js, TypeScript, Tailwind CSS, and Supabase PostgreSQL. It helps tuition centres manage students, teachers, classes, invoices, and QR-based attendance through a centralised platform with role-based access, bilingual support, and light and dark themes.",
+    capabilities: [
+      "Student and teacher management",
+      "Class management",
+      "Invoice management",
+      "QR-based attendance",
+      "Role-based access",
+      "Bilingual support",
+      "Light and dark themes",
+    ],
+    plannedEnhancements: [
+      "Organisation categories for home tutors and similar education providers",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase PostgreSQL",
+    ],
+    image: "/projects/didikflowdashboard.png",
+    imageAlt:
+      "DidikFlow education management dashboard showing active students, today's classes, attendance rate, outstanding fees, and tuition centre navigation",
+    imageWidth: 1920,
+    imageHeight: 1080,
+  },
+  {
     name: "Suka Room & Homestay",
     category: "Full-Stack Project",
     year: 2026,
@@ -138,7 +168,7 @@ export function ProjectsSection() {
           />
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-[#9CAFC3] sm:text-lg sm:leading-8">
-            Five products shaped around clear problems, thoughtful interfaces,
+            Six products shaped around clear problems, thoughtful interfaces,
             and dependable engineering.
           </p>
         </div>

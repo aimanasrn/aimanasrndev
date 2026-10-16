@@ -159,6 +159,8 @@ html {
     --portfolio-surface: #0e1b2a;
     --portfolio-border: #c7d5e224;
     --portfolio-muted: #9cafc3;
+    --hover-duration: 240ms;
+    --hover-ease: cubic-bezier(.22, 1, .36, 1);
 }
 body { margin: 0; background: #07111f; -webkit-font-smoothing: antialiased; }
 .portfolio { overflow-x: clip; }
@@ -267,6 +269,64 @@ body { margin: 0; background: #07111f; -webkit-font-smoothing: antialiased; }
 .business-identity > div { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; padding-block: 14px; border-bottom: 1px solid #c7d5e214; font-size: 14px; line-height: 1.8; }
 .business-identity dt { color: var(--portfolio-muted); }
 .business-identity dd { color: #c7d5e2; }
+
+/* Shared hover timing covers both the page and portalled project dialogs. */
+.portfolio :where(a:not(.sm-logo), button),
+.portfolio :is(.contact-policies nav a, .policy-back, .policy-sidebar nav a, .policy-section a, .footer-wordmark, .footer-policies a, .footer-email, .footer-bottom a, .footer-business > a, .business-detail a, .policy-help a, .policy-contact > a),
+[data-project-modal] :where(a, button) {
+    transition-property: color, background-color, border-color, box-shadow, opacity, text-decoration-color, transform, translate, scale;
+    transition-duration: var(--hover-duration);
+    transition-timing-function: var(--hover-ease);
+}
+.portfolio :is(a, button) > svg,
+[data-project-modal] :is(a, button) > svg,
+.contact-link > span:first-child,
+.portfolio :is(#experience article, #capabilities article, .ai-workflow li) :is(h3, span, li),
+[data-project-modal] li.rounded-full {
+    transition-property: color, background-color, border-color, opacity, transform, translate, scale;
+    transition-duration: var(--hover-duration);
+    transition-timing-function: var(--hover-ease);
+}
+.portfolio :is(.footer-wordmark, .business-detail a) { display: inline-block; }
+.portfolio :is(#experience article, #capabilities article, .ai-workflow li),
+.hero-photo {
+    transition: translate 320ms var(--hover-ease), scale 320ms var(--hover-ease), border-color 320ms var(--hover-ease), background-color 320ms var(--hover-ease), box-shadow 320ms var(--hover-ease);
+}
+#stack [data-chip] {
+    transition: box-shadow var(--hover-duration) var(--hover-ease), filter var(--hover-duration) var(--hover-ease);
+}
+#stack [data-chip] img { transition: scale var(--hover-duration) var(--hover-ease); }
+[data-project-carousel] button[aria-label^="Show "] { transition-property: width, background-color, translate, box-shadow; }
+
+@media (hover: hover) and (pointer: fine) {
+    .portfolio :is(.hero-copy a, a[download], .contact-cta, #stack button, [data-project-carousel] button):not(:disabled):hover,
+    [data-project-modal] :is(a, button):not(:disabled):hover {
+        translate: 0 -2px;
+        box-shadow: 0 8px 24px #4cc9f01a;
+    }
+    .portfolio :is(.hero-copy a, a[download], .contact-cta, #stack button, [data-project-carousel] button):not(:disabled):active,
+    [data-project-modal] :is(a, button):not(:disabled):active { translate: 0 0; }
+    .portfolio :is(.hero-copy a, a[download], .contact-cta):hover > svg,
+    .portfolio :is(.footer-email, .footer-policies a, .contact-policies nav a):hover > svg,
+    [data-project-modal] a:hover > svg { translate: 1px -1px; }
+    .portfolio :is(.contact-policies nav a, .policy-back, .policy-sidebar nav a, .footer-policies a, .footer-email, .footer-bottom a, .footer-business > a, .business-detail a, .policy-help a):hover { translate: 3px 0; }
+    .portfolio .footer-wordmark:hover { translate: 0 -2px; }
+    .portfolio .footer-bottom a:hover > svg { translate: 0 -2px; }
+    .portfolio .policy-contact > a:hover { translate: 0 -2px; box-shadow: 0 8px 24px #4cc9f01a; }
+    .portfolio .contact-link:hover { translate: 2px 0; background-color: #102a43; }
+    .portfolio .contact-link:hover > span:first-child { scale: 1.05; border-color: #4cc9f080; }
+    .portfolio :is(#experience article, #capabilities article, .ai-workflow li):hover {
+        translate: 0 -3px;
+        border-color: #4cc9f073;
+        background-color: #102a43;
+        box-shadow: 0 16px 40px #4cc9f012;
+    }
+    .portfolio :is(#experience article, #capabilities article) li:hover,
+    [data-project-modal] li.rounded-full:hover { translate: 0 -2px; border-color: #4cc9f080; }
+    .hero-photo:hover { translate: 0 -3px; scale: 1.01; box-shadow: 0 28px 80px #4cc9f01a; }
+    #stack [data-chip]:hover { filter: brightness(1.08); box-shadow: 0 10px 24px #4cc9f026; }
+    #stack [data-chip]:hover img { scale: 1.08; }
+}
 @media (max-width: 1023px) {
     .policy-layout { grid-template-columns: 210px minmax(0, 1fr); gap: 40px; }
     .footer-main { gap: 32px; }
@@ -311,7 +371,10 @@ body { margin: 0; background: #07111f; -webkit-font-smoothing: antialiased; }
 }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .portfolio *, .portfolio *::before, .portfolio *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    .portfolio *, .portfolio *::before, .portfolio *::after,
+    [data-project-modal], [data-project-modal] * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    .portfolio :is(a, button, article, li, .hero-photo, svg, #stack img, [data-project-card] img, .sm-panel-itemText),
+    [data-project-modal] :is(a, button, li, svg), .contact-link > span:first-child { translate: none !important; scale: none !important; }
     .portfolio .blur-text > span { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
 

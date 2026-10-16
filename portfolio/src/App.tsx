@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 
 import { PolicyPage } from "@/components/PolicyPage"
 import { SiteFooter } from "@/components/SiteFooter"
@@ -50,6 +50,18 @@ const getHash = () => window.location.hash
 export function App() {
   const hash = useSyncExternalStore(subscribeToLocation, getHash, () => "")
   const policySlug = getPolicySlug(hash)
+  const [heroVisible, setHeroVisible] = useState(true)
+
+  useEffect(() => {
+    const hero = document.getElementById("home")
+    if (!hero) return
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setHeroVisible(entry.isIntersecting)
+    })
+    observer.observe(hero)
+    return () => observer.disconnect()
+  }, [policySlug])
 
   useEffect(() => {
     document.title = policySlug
@@ -91,6 +103,8 @@ export function App() {
       </a>
       <StaggeredMenu
         isFixed
+        logoUrl="/aimanasrndevprofile.png"
+        hideLogo={!policySlug && heroVisible}
         items={navigationItems}
         socialItems={socialItems}
         menuButtonColor="#F4F7FB"
