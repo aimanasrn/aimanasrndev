@@ -11,6 +11,19 @@ npm run dev
 
 Build the deployable website with `npm run build`. The output is in `dist/`.
 
+Use the address printed by the script: `http://127.0.0.1:5173` for development
+and `http://127.0.0.1:4173` for the production preview. Both scripts bind to
+the local computer and fail if their port is occupied, rather than silently
+opening another port.
+
+The local scripts allow up to 64 KiB of HTTP request headers. Node's default
+16 KiB limit can cause Vite's `431 Request Header Fields Too Large` error
+when browser headers, including cookies shared by local projects, become
+large. This setting applies only to these local processes. If the error
+returns, inspect and clear the affected host's stale cookies rather than
+continuing to raise the limit. Start Vite through `npm run dev` or
+`npm run preview` so this setting takes effect.
+
 ## Policies and business details
 
 The menu, contact section and shared footer link to four public pages:

@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils"
 export interface Project {
   name: string
   category: string
+  showcaseCategory?: string
+  summary?: string
   status?: string
   year: number
   description?: string

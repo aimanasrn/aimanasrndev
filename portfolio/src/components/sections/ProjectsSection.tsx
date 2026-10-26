@@ -1,13 +1,14 @@
-import BlurText from "@/components/BlurText"
 import { PageContainer } from "@/components/PageContainer"
 import type { Project } from "@/components/projects/ProjectCard"
 import { ProjectShowcase } from "@/components/projects/ProjectShowcase"
-import SplitText from "@/components/SplitText"
 
 const projects = [
   {
     name: "DidikFlow",
     category: "Education Management SaaS",
+    showcaseCategory: "Education Management SaaS",
+    summary:
+      "A central workspace for tuition centres to manage students, classes, invoices, and QR attendance.",
     year: 2026,
     description:
       "DidikFlow is an education management SaaS platform built with Next.js, TypeScript, Tailwind CSS, and Supabase PostgreSQL. It helps tuition centres manage students, teachers, classes, invoices, and QR-based attendance through a centralised platform with role-based access, bilingual support, and light and dark themes.",
@@ -38,6 +39,9 @@ const projects = [
   {
     name: "Suka Room & Homestay",
     category: "Full-Stack Project",
+    showcaseCategory: "Booking Platform",
+    summary:
+      "A bilingual booking platform for guests to find accommodation, check availability, and enquire about their stay.",
     year: 2026,
     capabilities: [
       "Bilingual BM/EN booking",
@@ -56,6 +60,9 @@ const projects = [
   {
     name: "SoftSpend",
     category: "Full-Stack",
+    showcaseCategory: "Expense Tracker",
+    summary:
+      "A clear view of everyday spending, budget progress, and transactions, organised in one dashboard.",
     status: "Live",
     year: 2026,
     capabilities: [
@@ -74,6 +81,9 @@ const projects = [
   {
     name: "Nova Invoice",
     category: "Full-Stack Project",
+    showcaseCategory: "Invoice Management",
+    summary:
+      "An invoicing workspace with client management, business profiles, and PDF exports to keep billing organised.",
     year: 2026,
     capabilities: [
       "Invoice builder",
@@ -100,6 +110,9 @@ const projects = [
   {
     name: "KOPERAT",
     category: "Client Project",
+    showcaseCategory: "Corporate Website",
+    summary:
+      "A corporate property website connecting visitors with housing projects, company information, and WhatsApp enquiries.",
     year: 2026,
     capabilities: [
       "Corporate information",
@@ -119,6 +132,9 @@ const projects = [
   {
     name: "Al-Fahmu Learning Centre",
     category: "Frontend",
+    showcaseCategory: "Learning Centre Website",
+    summary:
+      "A responsive learning centre website bringing programmes, teaching information, and enrolment enquiries together.",
     status: "Client Project",
     year: 2026,
     capabilities: [
@@ -140,42 +156,19 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative overflow-x-clip border-t border-[#C7D5E2]/10 bg-[#07111F] py-20 sm:py-24 lg:py-28 xl:py-32"
+      className="projects-section relative border-t border-[#C7D5E2]/10 bg-[#07111F]"
     >
-      <PageContainer>
-        <div className="max-w-3xl">
-          <SplitText
-            text="04 / Selected Projects"
-            tag="p"
-            splitType="words"
-            textAlign="left"
-            delay={24}
-            duration={1}
-            threshold={0.1}
-            rootMargin="0px"
-            className="font-mono text-xs tracking-[0.22em] text-[#4CC9F0] uppercase"
-          />
-
-          <BlurText
-            text="Projects I’ve Built"
-            tag="h2"
-            animateBy="words"
-            direction="bottom"
-            delay={90}
-            stepDuration={0.8}
-            threshold={0.1}
-            className="mt-6 text-4xl leading-[1.05] font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl"
-          />
-
-          <p className="mt-6 max-w-2xl text-base leading-7 text-[#9CAFC3] sm:text-lg sm:leading-8">
+      <PageContainer className="projects-container">
+        <div className="projects-heading">
+          <p className="projects-section-label">04 / Selected Projects</p>
+          <h2>Projects I’ve Built</h2>
+          <p className="projects-intro">
             Six products shaped around clear problems, thoughtful interfaces,
             and dependable engineering.
           </p>
         </div>
 
-        <div className="mt-12 sm:mt-16 lg:mt-12 xl:mt-14">
-          <ProjectShowcase projects={projects} />
-        </div>
+        <ProjectShowcase projects={projects} />
       </PageContainer>
     </section>
   )

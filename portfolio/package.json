@@ -4,12 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node --max-http-header-size=65536 ./node_modules/vite/bin/vite.js --host 127.0.0.1 --strictPort",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "node --max-http-header-size=65536 ./node_modules/vite/bin/vite.js preview --host 127.0.0.1 --strictPort"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
