@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import type { Project } from "@/components/projects/ProjectCard"
 import { ProjectDetailsModal } from "@/components/projects/ProjectDetailsModal"
 import { ProjectPreview } from "@/components/projects/ProjectPreview"
+import AnimatedContent from "@/components/AnimatedContent"
 
 interface ProjectShowcaseProps {
   projects: readonly Project[]
@@ -45,7 +46,13 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
           const panelId = `${id}-preview-${index}`
 
           return (
-            <li key={project.name} data-active={isActive}>
+            <AnimatedContent
+              as="li"
+              key={project.name}
+              data-active={isActive}
+
+              staggerIndex={index}
+            >
               <button
                 id={triggerId}
                 type="button"
@@ -94,7 +101,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                   ) : null}
                 </div>
               ) : null}
-            </li>
+            </AnimatedContent>
           )
         })}
       </ol>

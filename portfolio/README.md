@@ -24,6 +24,27 @@ returns, inspect and clear the affected host's stale cookies rather than
 continuing to raise the limit. Start Vite through `npm run dev` or
 `npm run preview` so this setting takes effect.
 
+## Services MVP
+
+Open `/services` to view the web development services page. Pricing and copy
+are maintained in `src/content/services.ts`, with the five supplied package
+sheets transcribed in `src/content/service-packages.ts`. All six main services
+have three tiers, expandable inclusions, comparisons and package selection.
+Add-on rates are grouped by service; business and corporate hosting and
+maintenance show their supplied recurring ranges. Custom System Advanced is
+RM20,000+. Individual Landing Page tier delivery dates, Mini LMS pricing and
+other unspecified costs are confirmed by quotation.
+
+Package and service enquiry buttons preselect the enquiry form. The form
+validates locally and opens the visitor's email app with the project details
+for review and sending. It does not send or store submissions on a server.
+The hero uses the WhatsApp URL from `src/content/business.ts` when configured,
+and otherwise links to the enquiry section.
+
+Production hosting must serve `index.html` for `/services` and `/services/`
+so direct links and refreshes work. Vite development and preview provide this
+SPA fallback automatically. Keep asset requests mapped to their actual files.
+
 ## Policies and business details
 
 The menu, contact section and shared footer link to four public pages:

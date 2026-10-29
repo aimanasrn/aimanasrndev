@@ -5,6 +5,7 @@ export const business = {
   owner: "Muhammad Aiman Bin Kanasronsham",
   email: "aimanasrn@gmail.com",
   phone: "",
+  whatsappUrl: "",
   address: "",
   registrationNumber: "",
   country: "Malaysia",

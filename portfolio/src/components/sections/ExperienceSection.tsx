@@ -1,9 +1,6 @@
-import { BriefcaseBusiness } from "lucide-react"
-
-import AnimatedContent from "@/components/AnimatedContent"
-import BlurText from "@/components/BlurText"
 import { PageContainer } from "@/components/PageContainer"
-import SplitText from "@/components/SplitText"
+import { SectionHeading } from "@/components/SectionHeading"
+import AnimatedContent from "@/components/AnimatedContent"
 
 const experience = [
   {
@@ -52,86 +49,52 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
+      className="section section-ruled"
       aria-labelledby="experience-heading"
-      className="border-t border-[#C7D5E2]/10 bg-[#0B1726] bg-[linear-gradient(rgba(76,201,240,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(76,201,240,0.035)_1px,transparent_1px)] bg-[size:48px_48px] py-20 sm:py-24 lg:py-32"
     >
       <PageContainer>
-        <SplitText
-          text="03 / Experience"
-          tag="p"
-          splitType="words"
-          textAlign="left"
-          delay={24}
-          duration={1}
-          threshold={0.1}
-          rootMargin="0px"
-          className="text-xs tracking-[0.22em] text-[#4CC9F0] uppercase"
-        />
-        <BlurText
+        <SectionHeading
           id="experience-heading"
-          text="Experience across products and platforms."
-          tag="h2"
-          animateBy="words"
-          direction="bottom"
-          delay={90}
-          stepDuration={0.8}
-          threshold={0.1}
-          className="mt-6 max-w-4xl text-4xl leading-tight font-medium tracking-[-0.04em] sm:text-6xl"
-        />
-        <p className="mt-6 max-w-2xl text-base leading-7 text-[#9CAFC3] sm:text-lg">
-          A practical path through government systems, fintech products, and
-          full-stack delivery.
-        </p>
-
-        <div className="relative mt-14 space-y-7 before:absolute before:top-6 before:bottom-6 before:left-5 before:w-px before:bg-gradient-to-b before:from-[#4CC9F0] before:via-[#4CC9F0]/35 before:to-transparent sm:before:left-8">
+          label="02 / The journey"
+          description="Government systems, fintech products, and everything in between."
+        >
+          Built on real-world
+          <br />
+          experience<span className="yellow-dot">.</span>
+        </SectionHeading>
+        <ol className="experience-list">
           {experience.map((item, index) => (
             <AnimatedContent
+              as="li"
               key={item.company}
-              distance={36}
-              duration={0.75}
-              delay={index * 0.08}
-              threshold={0.08}
-              className="relative pl-14 sm:pl-20"
+              className="experience-row"
+              staggerIndex={index}
             >
-              <span className="absolute top-7 left-0 z-10 flex size-10 items-center justify-center rounded-full border border-[#4CC9F0]/70 bg-[#07111F] font-mono text-xs font-semibold tracking-[0.1em] text-[#4CC9F0] shadow-[0_0_0_6px_#0B1726] sm:left-3 sm:size-11">
+              <span className="experience-number">
                 {item.number}
+                <span aria-hidden="true" />
               </span>
-              <article className="group flex min-h-64 flex-col rounded-[1.75rem] border border-[#C7D5E2]/15 bg-[#0E1B2A]/95 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.18)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[#4CC9F0]/50 hover:bg-[#102A43] hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)] motion-reduce:transform-none sm:p-9">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <p className="text-xs tracking-[0.16em] text-[#4CC9F0] uppercase">
-                    {item.project}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] text-[#72D5F5] uppercase">
-                    <BriefcaseBusiness
-                      className="size-3.5"
-                      aria-hidden="true"
-                    />
-                    {item.period}
-                  </span>
-                </div>
-                <h3 className="mt-6 text-2xl font-medium tracking-[-0.035em] text-[#F4F7FB] transition-colors group-hover:text-[#4CC9F0] sm:text-4xl">
-                  {item.role}
-                </h3>
-                <p className="mt-2 w-fit text-base font-medium text-[#5BA9FF] underline decoration-[#5BA9FF]/30 underline-offset-4 transition-colors hover:text-[#8CC7FF] hover:decoration-[#8CC7FF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4CC9F0]">
-                  {item.company}
-                </p>
-                <p className="mt-5 max-w-3xl text-sm leading-7 text-[#9CAFC3] sm:text-base">
-                  {item.description}
-                </p>
-                <ul className="mt-7 flex flex-wrap gap-2">
+              <article>
+                <p className="experience-project">{item.project}</p>
+                <h3>{item.role}</h3>
+                <p className="experience-company">{item.company}</p>
+                <p className="experience-description">{item.description}</p>
+                <ul className="tag-list">
                   {item.skills.map((skill) => (
-                    <li
-                      key={skill}
-                      className="rounded-md border border-[#4CC9F0]/25 bg-[#07111F]/60 px-2.5 py-1.5 text-[11px] tracking-[0.04em] text-[#C7D5E2]"
-                    >
-                      {skill}
-                    </li>
+                    <li key={skill}>{skill}</li>
                   ))}
                 </ul>
               </article>
+              <span
+                className="experience-period"
+                data-current={item.period === "Current" || undefined}
+              >
+                {item.period === "Current" && <span aria-hidden="true" />}
+                {item.period}
+              </span>
             </AnimatedContent>
           ))}
-        </div>
+        </ol>
       </PageContainer>
     </section>
   )

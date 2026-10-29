@@ -1,9 +1,9 @@
 import { useEffect, useId, useRef } from "react"
 import { createPortal } from "react-dom"
-import { ArrowUpRight, X } from "lucide-react"
+import { ArrowUpRight, Check, X } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
-
 import type { Project } from "@/components/projects/ProjectCard"
+import AnimatedContent from "@/components/AnimatedContent"
 
 interface ProjectDetailsModalProps {
   project: Project
@@ -24,48 +24,37 @@ export function ProjectDetailsModal({
   const dialogRef = useRef<HTMLElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
-  const projectType = [project.category, project.status]
-    .filter(Boolean)
-    .join(" · ")
-
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
     closeButtonRef.current?.focus()
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault()
         onClose()
         return
       }
-
       if (event.key !== "Tab") return
-
-      const focusableElements = Array.from(
+      const elements = Array.from(
         dialogRef.current?.querySelectorAll<HTMLElement>(focusableSelector) ??
           []
       )
-      const firstElement = focusableElements[0]
-      const lastElement = focusableElements.at(-1)
-
-      if (!firstElement || !lastElement) {
+      const first = elements[0]
+      const last = elements.at(-1)
+      if (!first || !last) {
         event.preventDefault()
         return
       }
-
-      if (event.shiftKey && document.activeElement === firstElement) {
+      if (event.shiftKey && document.activeElement === first) {
         event.preventDefault()
-        lastElement.focus()
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
         event.preventDefault()
-        firstElement.focus()
+        first.focus()
       }
     }
-
     document.addEventListener("keydown", handleKeyDown)
-
     return () => {
       document.body.style.overflow = previousOverflow
       document.removeEventListener("keydown", handleKeyDown)
@@ -73,62 +62,45 @@ export function ProjectDetailsModal({
     }
   }, [onClose])
 
-  const springTransition = reduceMotion
-    ? { duration: 0 }
-    : {
-        type: "spring" as const,
-        stiffness: 260,
-        damping: 32,
-        mass: 0.9,
-      }
-
   return createPortal(
     <motion.div
       className="fixed inset-0 z-[250] grid overflow-y-auto px-4 py-6 sm:px-6 sm:py-10"
+      data-project-modal
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
-      data-project-modal
+      transition={{ duration: reduceMotion ? 0 : 0.2 }}
     >
-      <motion.div
+      <div
+        className="project-dialog-backdrop"
         aria-hidden="true"
-        className="fixed inset-0 cursor-default bg-[rgba(5,5,5,0.6)] backdrop-blur-[12px]"
         onClick={onClose}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.3 }}
       />
-
       <motion.article
         ref={dialogRef}
+        className="project-dialog"
         layoutId={`${layoutIdPrefix}-card`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.92, y: 26 }}
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.97, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={
-          reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 14 }
-        }
-        transition={springTransition}
-        className="relative z-10 m-auto w-full max-w-5xl overflow-hidden rounded-[1.5rem] border border-[#C7D5E2]/20 bg-[#0B1726] shadow-[0_40px_120px_rgba(0,0,0,0.58)] outline-none"
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.25 }}
       >
         <button
           ref={closeButtonRef}
-          type="button"
+          className="project-dialog-close"
           onClick={onClose}
           aria-label="Close project details"
-          className="absolute top-4 right-4 z-20 grid size-11 place-items-center rounded-full border border-white/18 bg-[#07111F]/80 text-[#F4F7FB] backdrop-blur-md transition-[border-color,color,transform] duration-300 hover:scale-105 hover:border-[#4CC9F0]/55 hover:text-[#4CC9F0] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#4CC9F0] motion-reduce:transform-none motion-reduce:transition-none"
         >
-          <X aria-hidden="true" className="size-4" />
+          <X size={19} aria-hidden="true" />
         </button>
+        <AnimatedContent
+          className="project-dialog-media"
 
-        <motion.div
-          layoutId={`${layoutIdPrefix}-image`}
-          className="relative aspect-[16/9] overflow-hidden border-b border-[#C7D5E2]/14 bg-[#07111F] sm:aspect-[16/8]"
+          container="[data-project-modal]"
         >
           <img
             src={project.image}
@@ -136,99 +108,66 @@ export function ProjectDetailsModal({
             width={project.imageWidth}
             height={project.imageHeight}
             draggable={false}
-            className="h-full w-full object-cover object-top select-none [-webkit-user-drag:none]"
           />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0B1726]/80 to-transparent"
-          />
-        </motion.div>
-
-        <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)] lg:gap-12 lg:p-10">
+        </AnimatedContent>
+        <AnimatedContent
+          className="project-dialog-content"
+          container="[data-project-modal]"
+          staggerIndex={1}
+        >
           <div>
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <motion.h2
-                  id={titleId}
-                  layoutId={`${layoutIdPrefix}-title`}
-                  className="text-3xl leading-none font-semibold tracking-[-0.045em] text-[#F4F7FB] sm:text-5xl"
-                >
-                  {project.name}
-                </motion.h2>
-                <p className="mt-3 font-mono text-[0.68rem] tracking-[0.1em] text-[#4CC9F0] uppercase sm:text-xs">
-                  {projectType} · {project.year}
-                </p>
-              </div>
-
-              {project.href ? (
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-[#C7D5E2]/20 px-4 py-2.5 text-sm font-medium text-[#F4F7FB] transition-[border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-[#4CC9F0]/55 hover:text-[#4CC9F0] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#4CC9F0] motion-reduce:transform-none motion-reduce:transition-none"
-                >
-                  Visit project
-                  <ArrowUpRight aria-hidden="true" className="size-4" />
-                </a>
-              ) : null}
-            </div>
-
-            {project.description ? (
-              <p className="mt-6 text-sm leading-7 text-[#C7D5E2] sm:text-base">
-                {project.description}
-              </p>
-            ) : null}
-
-            <div className="mt-8">
-              <p className="font-mono text-[0.68rem] tracking-[0.16em] text-[#6F859C] uppercase">
-                Main capabilities
-              </p>
-              <ul className="mt-4 grid gap-3 text-sm leading-6 text-[#C7D5E2] sm:grid-cols-2 sm:text-base">
-                {project.capabilities.map((capability) => (
-                  <li key={capability} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 size-1.5 shrink-0 rounded-full bg-[#4CC9F0]"
-                    />
-                    {capability}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {project.plannedEnhancements?.length ? (
-              <div className="mt-8 border-t border-[#C7D5E2]/12 pt-6">
-                <p className="font-mono text-[0.68rem] tracking-[0.16em] text-[#6F859C] uppercase">
-                  Planned enhancements
-                </p>
-                <p className="mt-3 text-sm leading-6 text-[#9CAFC3]">
-                  Planned features; implementation has not yet been confirmed.
-                </p>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-[#C7D5E2]">
-                  {project.plannedEnhancements.map((enhancement) => (
-                    <li key={enhancement}>{enhancement}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-
-          <div className="border-t border-[#C7D5E2]/12 pt-7 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">
-            <p className="font-mono text-[0.68rem] tracking-[0.16em] text-[#6F859C] uppercase">
-              Technology
+            <h2 id={titleId}>{project.name}</h2>
+            <p className="project-dialog-meta">
+              {[project.category, project.status, project.year]
+                .filter(Boolean)
+                .join(" · ")}
             </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {project.technologies.map((technology) => (
-                <li
-                  key={technology}
-                  className="rounded-full border border-[#C7D5E2]/14 bg-[#07111F] px-3 py-1.5 font-mono text-[0.68rem] text-[#9CAFC3]"
-                >
-                  {technology}
+            <p className="project-dialog-summary">
+              {project.description ?? project.summary}
+            </p>
+            <h3>Main capabilities</h3>
+            <ul className="project-capabilities">
+              {project.capabilities.map((item) => (
+                <li key={item}>
+                  <Check size={15} aria-hidden="true" />
+                  {item}
                 </li>
               ))}
             </ul>
+            {Boolean(project.plannedEnhancements?.length) && (
+              <div className="project-planned">
+                <h3>Planned enhancements</h3>
+                <p>
+                  Planned features; implementation has not yet been confirmed.
+                </p>
+                <ul>
+                  {project.plannedEnhancements!.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-        </div>
+          <div className="project-dialog-technologies">
+            <h3>Technology</h3>
+            <ul className="tag-list">
+              {project.technologies.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {project.href && (
+              <a
+                className="button button-dark"
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit project
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            )}
+          </div>
+        </AnimatedContent>
       </motion.article>
     </motion.div>,
     document.body

@@ -192,7 +192,7 @@ export default function FallingText({
                 }
               : undefined
           }
-          className="inline-flex shrink-0 cursor-grab items-center gap-2.5 rounded-2xl border bg-[#14263B] px-4 py-3 text-sm font-medium whitespace-nowrap text-[#F4F7FB] shadow-lg select-none active:cursor-grabbing sm:text-base"
+          className="inline-flex shrink-0 cursor-grab items-center gap-2.5 rounded-2xl border bg-white px-4 py-3 text-sm font-medium whitespace-nowrap text-[#171714] select-none active:cursor-grabbing sm:text-base"
         >
           {icon}
           {name}

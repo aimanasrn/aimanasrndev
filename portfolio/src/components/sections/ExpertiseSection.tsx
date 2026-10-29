@@ -1,11 +1,12 @@
-import AnimatedContent from "@/components/AnimatedContent"
-import BlurText from "@/components/BlurText"
+import { Code2, Database, Monitor, Wrench } from "lucide-react"
 import { PageContainer } from "@/components/PageContainer"
-import SplitText from "@/components/SplitText"
+import { SectionHeading } from "@/components/SectionHeading"
+import AnimatedContent from "@/components/AnimatedContent"
 
-const capabilityGroups = [
+const groups = [
   {
     title: "Frontend",
+    icon: Monitor,
     tools: [
       "React",
       "Next.js",
@@ -20,6 +21,7 @@ const capabilityGroups = [
   },
   {
     title: "Backend",
+    icon: Code2,
     tools: [
       "Node.js",
       "Express.js",
@@ -33,10 +35,12 @@ const capabilityGroups = [
   },
   {
     title: "Database",
+    icon: Database,
     tools: ["PostgreSQL", "Supabase", "MySQL", "SQLite", "DB2", "SQL"],
   },
   {
     title: "Testing & tools",
+    icon: Wrench,
     tools: [
       "Playwright",
       "Vitest",
@@ -47,67 +51,45 @@ const capabilityGroups = [
       "AI-assisted development",
     ],
   },
-] as const
+]
 
 export function ExpertiseSection() {
   return (
     <section
       id="capabilities"
+      className="section"
       aria-labelledby="capabilities-heading"
-      className="border-t border-[#C7D5E2]/10 py-20 lg:py-32"
     >
       <PageContainer>
-        <SplitText
-          text="Capabilities"
-          tag="p"
-          splitType="words"
-          textAlign="left"
-          delay={24}
-          duration={1}
-          threshold={0.1}
-          rootMargin="0px"
-          className="text-xs tracking-[0.35em] text-[#9CAFC3] uppercase"
-        />
-        <BlurText
+        <SectionHeading
           id="capabilities-heading"
-          text="Tools chosen for the work at hand."
-          tag="h2"
-          animateBy="words"
-          direction="bottom"
-          delay={90}
-          stepDuration={0.8}
-          threshold={0.1}
-          className="mt-6 max-w-4xl text-4xl leading-tight font-medium tracking-[-0.04em] sm:text-6xl"
-        />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {capabilityGroups.map((group, index) => (
+          label="04 / Capabilities"
+          description="Tools chosen for the work at hand."
+        >
+          The right skills.
+          <br />
+          For the right solution<span className="yellow-dot">.</span>
+        </SectionHeading>
+        <div className="capability-grid">
+          {groups.map(({ title, icon: Icon, tools }, index) => (
             <AnimatedContent
-              key={group.title}
-              distance={42}
-              duration={0.8}
-              delay={index * 0.08}
-              threshold={0.08}
-              className="h-full"
+              as="article"
+              className="capability"
+              key={title}
+              staggerIndex={index}
             >
-              <article className="group flex h-full min-h-64 flex-col rounded-[1.75rem] border border-[#C7D5E2]/15 bg-[#0E1B2A] p-7 transition-[border-color,background-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-[#4CC9F0]/45 hover:bg-[#102A43] hover:shadow-[0_22px_60px_rgba(0,0,0,0.2)] motion-reduce:transform-none sm:p-9">
-                <span
-                  className="size-2 rounded-full bg-[#4CC9F0] opacity-70 transition-opacity group-hover:opacity-100"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-7 text-2xl font-medium tracking-[-0.035em] text-[#F4F7FB] transition-colors group-hover:text-[#4CC9F0] sm:text-3xl">
-                  {group.title}
-                </h3>
-                <ul className="mt-7 flex flex-wrap gap-2">
-                  {group.tools.map((tool) => (
-                    <li
-                      key={tool}
-                      className="rounded-full border border-[#C7D5E2]/18 bg-[#07111F]/60 px-3 py-1.5 text-sm text-[#C7D5E2] transition-colors group-hover:border-[#4CC9F0]/25 group-hover:text-[#F4F7FB]"
-                    >
-                      {tool}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+              <div className="capability-top">
+                <span className="capability-icon">
+                  <Icon size={26} strokeWidth={1.8} aria-hidden="true" />
+                </span>
+                <span>0{index + 1}</span>
+              </div>
+              <h3>{title}</h3>
+              <ul className="tag-list">
+                {tools.map((tool) => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
             </AnimatedContent>
           ))}
         </div>

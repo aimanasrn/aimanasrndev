@@ -1,161 +1,178 @@
-import AnimatedContent from "@/components/AnimatedContent"
-import PatternWaves from "@/components/PatternWaves"
-import BlurText from "@/components/BlurText"
+import { ArrowDown, ArrowUpRight, Asterisk, MessageCircle } from "lucide-react"
 import { PageContainer } from "@/components/PageContainer"
-import ShinyText from "@/components/ShinyText"
-import SplitText from "@/components/SplitText"
+import RotatingText from "@/components/RotatingText"
 import StarBorder from "@/components/StarBorder"
+import { business } from "@/content/business"
+import AnimatedContent from "@/components/AnimatedContent"
+
+const heroWords = ["software.", "websites.", "web apps.", "systems."]
+const complementaryCapabilities = [
+  "API integrations",
+  "Cloud deployment",
+  "Database design",
+  "Responsive web design",
+  "Maintenance & support",
+]
 
 export function HomeSection() {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <PatternWaves
-          preset="silk"
-          color="#4CC9F0"
-          backgroundColor="#07111F"
-          opacity={0.65}
-          spacing={10}
-          speed={0.3}
-          fade="bottom"
-          fadeSize={0.35}
-          cursorStrength={0.35}
-          intro={false}
-        />
-      </div>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.65),rgba(7,17,31,0.12)),linear-gradient(0deg,#07111F,transparent_25%)]" />
-      <PageContainer className="hero-layout relative z-[1]">
-        <div className="hero-portrait pointer-events-auto">
-          <AnimatedContent
-            direction="horizontal"
-            distance={96}
-            duration={1.1}
-            ease="power3.out"
-            initialOpacity={0}
-            animateOpacity
-            scale={0.94}
-            threshold={0.1}
-            delay={0.15}
-            className="h-full w-full"
-          >
-            <div
-              className="hero-photo aspect-square w-full overflow-hidden rounded-full border border-[#C7D5E2]/18 bg-[#0E1B2A] shadow-[0_24px_80px_rgba(7,17,31,0.55)]"
+    <section id="home" aria-labelledby="hero-heading">
+      <PageContainer>
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <AnimatedContent className="hero-availability">
+              <span
+                className="availability-badge availability-badge-work"
+                title="Open to full-time or contract opportunities"
+              >
+                <span className="availability-status-dot" aria-hidden="true">
+                  <span className="absolute inset-0 rounded-full bg-[#28834b] opacity-75 motion-safe:animate-ping" />
+                </span>
+                Open to work
+              </span>
+            </AnimatedContent>
+            <AnimatedContent
+              as="h1"
+              staggerIndex={1}
+              id="hero-heading"
+              aria-label="Good ideas. Great software, websites, web apps, and systems."
             >
+              Good ideas.
+              <br />
+              <span className="hero-highlight" aria-hidden="true">
+                <span>Great</span>
+                <span className="highlight hero-rotating-slot">
+                  {heroWords.map((word) => (
+                    <span className="hero-rotating-sizer" key={word}>
+                      {word}
+                    </span>
+                  ))}
+                  <RotatingText
+                    texts={heroWords}
+                    mainClassName="hero-rotating-text"
+                    splitBy="lines"
+                    effect="slide"
+                    rotationInterval={2500}
+                    transition={{
+                      type: "tween",
+                      duration: 0.4,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    pauseOnHover
+                  />
+                </span>
+              </span>
+            </AnimatedContent>
+            <AnimatedContent as="p" staggerIndex={2}>
+              I’m Aiman, a software developer based in Malaysia.
+              <br className="hero-break" /> I turn complex challenges into
+              thoughtful digital experiences — from the first idea to the final
+              line of code.
+            </AnimatedContent>
+            <AnimatedContent className="hero-actions" staggerIndex={3}>
+              <a
+                className="button button-dark hero-project-cta"
+                href={business.whatsappUrl || "#contact"}
+              >
+                <MessageCircle size={18} aria-hidden="true" />
+                Let’s discuss your project
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+              <StarBorder
+                as="a"
+                className="button button-outline"
+                href="#projects"
+              >
+                View selected work <ArrowUpRight size={18} aria-hidden="true" />
+              </StarBorder>
+            </AnimatedContent>
+            <AnimatedContent
+              as="p"
+              className="hero-hiring"
+
+              staggerIndex={4}
+            >
+              Hiring for your team? <a href="#contact">Let’s talk.</a>
+            </AnimatedContent>
+          </div>
+          <AnimatedContent className="hero-portrait" staggerIndex={2}>
+            <div className="portrait-freelance-note">
+              <span>
+                Available for
+                <br />
+                freelance projects
+              </span>
+              <svg
+                viewBox="0 0 72 64"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M9 7C5 27 16 49 57 49M57 49 44 40M57 49 43 55"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <div className="portrait-note" aria-hidden="true">
+              The person
+              <br />
+              behind the pixels
+              <svg viewBox="0 0 80 76" fill="none">
+                <path
+                  d="M65 4c13 28-8 49-48 54m0 0 15-16M17 58l21 8"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <figure className="portrait-frame">
               <img
                 src="/aimanasrndevprofile.png"
-                alt="Muhammad Aiman"
+                alt="Muhammad Aiman, software developer based in Malaysia"
                 width={1254}
                 height={1254}
                 fetchPriority="high"
-                className="h-full w-full rounded-full object-cover"
               />
-            </div>
+              <figcaption>
+                <strong>Muhammad Aiman</strong>
+                <span>Software Developer · Malaysia</span>
+              </figcaption>
+            </figure>
           </AnimatedContent>
         </div>
-        <div className="hero-copy relative z-10 min-w-0">
-          <p className="mb-6 text-sm font-medium tracking-[0.02em] sm:text-base">
-            <ShinyText
-              className="font-medium tracking-[0.02em]"
-              color="#9CAFC3"
-              shineColor="#F4F7FB"
-              speed={3}
-              spread={100}
-            >
-              <SplitText
-                text="Muhammad Aiman Bin Kanasronsham"
-                tag="span"
-                splitType="words"
-                textAlign="left"
-                delay={30}
-                duration={1}
-                className="font-medium tracking-[0.02em]"
-              />
-            </ShinyText>
-          </p>
-          <h1
-            aria-label="Building modern products & enterprise-grade systems."
-            className="hero-title font-medium"
+        <AnimatedContent className="hero-disciplines" staggerIndex={3}>
+          <span>Full-stack development</span>
+          <Asterisk aria-hidden="true" />
+          <span>Enterprise systems</span>
+          <Asterisk aria-hidden="true" />
+          <span>AI-assisted workflows</span>
+          <a
+            href="#about"
+            className="hero-scroll"
+            aria-label="Explore about me"
           >
-            <BlurText
-              text="Building"
-              tag="span"
-              className="align-baseline"
-              delay={75}
-              stepDuration={0.9}
-            />{" "}
-            <BlurText
-              text="modern products"
-              tag="span"
-              className="align-baseline font-normal text-[#4CC9F0] italic"
-              delay={75}
-              stepDuration={0.9}
-            />{" "}
-            <BlurText
-              text="& enterprise-grade systems."
-              tag="span"
-              className="align-baseline"
-              delay={75}
-              stepDuration={0.9}
-            />
-          </h1>
-          <SplitText
-            text="Software Developer, Full-Stack Developer, Mainframe Backend Developer and AI-Assisted System Builder based in Malaysia."
-            tag="p"
-            splitType="words"
-            textAlign="left"
-            className="mt-8 max-w-2xl text-base leading-7 text-white/60 sm:text-lg sm:leading-8"
-            delay={25}
-            duration={0.9}
-          />
-          <div className="pointer-events-auto mt-10 flex flex-wrap items-center gap-4">
-            <AnimatedContent
-              distance={28}
-              duration={0.8}
-              ease="power3.out"
-              threshold={0.1}
-              delay={0.35}
-              className="inline-flex"
-            >
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-3 rounded-full bg-[#4CC9F0] px-5 py-3 text-sm font-medium text-[#07111F] transition-transform hover:-translate-y-0.5 hover:bg-[#72D5F5]"
-              >
-                View selected work <span aria-hidden="true">↗</span>
-              </a>
-            </AnimatedContent>
-            <AnimatedContent
-              distance={28}
-              duration={0.8}
-              ease="power3.out"
-              threshold={0.1}
-              delay={0.5}
-              className="inline-flex"
-            >
-              <StarBorder
-                as="a"
-                href="#contact"
-                color="#4CC9F0"
-                secondaryColor="#7B61FF"
-                speed="5s"
-                backgroundColor="transparent"
-                textColor="#F4F7FB"
-                borderColor="rgba(199, 213, 226, 0.25)"
-                className="rounded-full text-sm font-medium transition-transform hover:-translate-y-0.5"
-              >
-                Get in touch <span aria-hidden="true">↗</span>
-              </StarBorder>
-            </AnimatedContent>
-          </div>
-          <SplitText
-            text="React · Next.js · Vue · Nuxt · Angular · Laravel · PostgreSQL"
-            tag="p"
-            splitType="words"
-            textAlign="left"
-            className="mt-12 text-xs font-medium tracking-[0.18em] text-white/40 uppercase sm:text-sm"
-            delay={20}
-            duration={0.8}
-          />
-        </div>
+            <ArrowDown size={20} />
+          </a>
+        </AnimatedContent>
+        <AnimatedContent className="hero-complementary" staggerIndex={4}>
+          <p className="section-label" id="complementary-capabilities-heading">
+            Complementary capabilities
+          </p>
+          <ul aria-labelledby="complementary-capabilities-heading">
+            {complementaryCapabilities.map((capability) => (
+              <li key={capability}>
+                <Asterisk size={16} aria-hidden="true" />
+                <span>{capability}</span>
+              </li>
+            ))}
+          </ul>
+        </AnimatedContent>
       </PageContainer>
     </section>
   )

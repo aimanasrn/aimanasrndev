@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 
 import type { Project } from "@/components/projects/ProjectCard"
 import { Button } from "@/components/ui/button"
+import AnimatedContent from "@/components/AnimatedContent"
 
 interface ProjectPreviewProps {
   project: Project
@@ -16,7 +17,11 @@ export function ProjectPreview({
   reduceMotion,
 }: ProjectPreviewProps) {
   return (
-    <article className="project-preview" aria-label={`${project.name} preview`}>
+    <AnimatedContent
+      as="article"
+      className="project-preview"
+      aria-label={`${project.name} preview`}
+    >
       <div className="project-browser">
         <div className="project-browser-toolbar" aria-hidden="true">
           <span />
@@ -45,7 +50,7 @@ export function ProjectPreview({
             </p>
           </div>
           <Button
-            variant="outline"
+            variant="default"
             className="project-explore"
             onClick={onExplore}
           >
@@ -60,6 +65,6 @@ export function ProjectPreview({
           {project.technologies.join(" / ")}
         </p>
       </div>
-    </article>
+    </AnimatedContent>
   )
 }

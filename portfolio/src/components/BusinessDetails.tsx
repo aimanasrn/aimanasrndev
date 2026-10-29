@@ -1,23 +1,18 @@
 import { Mail, MapPin, Phone } from "lucide-react"
 
 import { business, emailHref } from "@/content/business"
+import AnimatedContent from "@/components/AnimatedContent"
 
 export function BusinessDetails() {
   return (
-    <div className="business-details">
+    <AnimatedContent className="business-details">
       <div className="business-detail">
         <MapPin aria-hidden="true" size={18} />
         <div>
-          <p className="detail-label">Business address</p>
-          <address>
-            {business.address || "Full business address pending confirmation."}
-          </address>
-          {!business.address && (
-            <p className="detail-note">
-              Based in {business.country}. A full address is required before
-              publication.
-            </p>
-          )}
+          <p className="detail-label">
+            {business.address ? "Business address" : "Based in"}
+          </p>
+          <address>{business.address || business.country}</address>
         </div>
       </div>
       <div className="business-detail">
@@ -27,19 +22,17 @@ export function BusinessDetails() {
           <a href={emailHref}>{business.email}</a>
         </div>
       </div>
-      <div className="business-detail">
-        <Phone aria-hidden="true" size={18} />
-        <div>
-          <p className="detail-label">Contact number</p>
-          {business.phone ? (
+      {business.phone && (
+        <div className="business-detail">
+          <Phone aria-hidden="true" size={18} />
+          <div>
+            <p className="detail-label">Contact number</p>
             <a href={`tel:${business.phone.replace(/[^+\d]/g, "")}`}>
               {business.phone}
             </a>
-          ) : (
-            <p>Contact number pending confirmation.</p>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatedContent>
   )
 }

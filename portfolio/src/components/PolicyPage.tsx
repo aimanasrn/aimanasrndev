@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 
 import { BusinessDetails } from "@/components/BusinessDetails"
 import { PageContainer } from "@/components/PageContainer"
+import AnimatedContent from "@/components/AnimatedContent"
 import {
   business,
   emailHref,
@@ -152,10 +153,8 @@ const policies: Record<
         content: (
           <>
             <p>
-              The website uses browser local storage to remember a display theme
-              preference. You can clear this preference in your browser
-              settings. The current application does not include advertising
-              cookies or analytics tracking scripts.
+              The current application does not include advertising cookies or
+              analytics tracking scripts.
             </p>
             <p>
               The hosting provider may process technical information such as IP
@@ -319,7 +318,7 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
           Back to portfolio
         </a>
         <div className="policy-layout">
-          <aside className="policy-sidebar">
+          <AnimatedContent as="aside" className="policy-sidebar">
             <p className="detail-label">Policies & information</p>
             <nav aria-label="Policy pages">
               {policyLinks.map(({ slug: itemSlug, label }) => (
@@ -341,21 +340,25 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             </div>
-          </aside>
+          </AnimatedContent>
           <article className="policy-article">
-            <h1 id="policy-heading" tabIndex={-1}>
+            <AnimatedContent as="h1" id="policy-heading" tabIndex={-1}>
               {page.label}
-            </h1>
-            <p className="policy-intro">
+            </AnimatedContent>
+            <AnimatedContent as="p" className="policy-intro" staggerIndex={1}>
               {policy?.intro ||
                 "The person behind the work, business details and a direct way to get in touch."}
-            </p>
-            <p className="policy-updated">
+            </AnimatedContent>
+            <AnimatedContent as="p" className="policy-updated" staggerIndex={2}>
               {business.policiesConfirmed ? "Last updated" : "Draft prepared"} ·{" "}
               {business.updated}
-            </p>
+            </AnimatedContent>
             {!business.policiesConfirmed && (
-              <div className="policy-draft" role="note">
+              <AnimatedContent
+                className="policy-draft"
+                role="note"
+                staggerIndex={3}
+              >
                 <strong>Draft — awaiting business confirmation</strong>
                 <p>
                   These proposed terms assume software development services.
@@ -363,11 +366,15 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                   practices must be confirmed before these policies are
                   published as final.
                 </p>
-              </div>
+              </AnimatedContent>
             )}
             {policy ? (
               policy.sections.map(({ title, content }, index) => (
-                <section className="policy-section" key={title}>
+                <AnimatedContent
+                  as="section"
+                  className="policy-section"
+                  key={title}
+                >
                   <h2>
                     <span aria-hidden="true">
                       {String(index + 1).padStart(2, "0")}
@@ -375,11 +382,11 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                     {title}
                   </h2>
                   {content}
-                </section>
+                </AnimatedContent>
               ))
             ) : (
               <>
-                <section className="policy-section">
+                <AnimatedContent as="section" className="policy-section">
                   <h2>Business information</h2>
                   <dl className="business-identity">
                     <div>
@@ -404,12 +411,14 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                       </dd>
                     </div>
                   </dl>
-                </section>
+                </AnimatedContent>
                 <section className="policy-section">
-                  <h2>Address & contact details</h2>
+                  <AnimatedContent as="h2">
+                    Address & contact details
+                  </AnimatedContent>
                   <BusinessDetails />
                 </section>
-                <section className="policy-section">
+                <AnimatedContent as="section" className="policy-section">
                   <h2>Project and policy enquiries</h2>
                   <p>
                     For a new project, delivery question, privacy request or
@@ -418,10 +427,10 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                     project or invoice reference if your enquiry relates to
                     existing work.
                   </p>
-                </section>
+                </AnimatedContent>
               </>
             )}
-            <div className="policy-contact">
+            <AnimatedContent className="policy-contact">
               <div>
                 <h2>Have a question?</h2>
                 <p>Let’s make sure everything is clear.</p>
@@ -430,7 +439,7 @@ export function PolicyPage({ slug }: { slug: PolicySlug }) {
                 Contact by email
                 <ArrowUpRight size={16} aria-hidden="true" />
               </a>
-            </div>
+            </AnimatedContent>
           </article>
         </div>
       </PageContainer>

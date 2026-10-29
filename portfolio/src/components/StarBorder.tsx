@@ -1,54 +1,62 @@
-import React from 'react';
+import type {
+  ComponentPropsWithRef,
+  CSSProperties,
+  ElementType,
+  ReactNode,
+} from "react"
+import { cn } from "@/lib/utils"
 
-type StarBorderProps<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & {
-  as?: T;
-  className?: string;
-  children?: React.ReactNode;
-  color?: string;
-  secondaryColor?: string;
-  speed?: React.CSSProperties['animationDuration'];
-  thickness?: number;
-  backgroundColor?: string;
-  textColor?: string;
-  borderColor?: string;
-};
+type StarBorderProps<T extends ElementType> = Omit<
+  ComponentPropsWithRef<T>,
+  "as" | "color"
+> & {
+  as?: T
+  className?: string
+  children?: ReactNode
+  color?: string
+  secondaryColor?: string
+  speed?: CSSProperties["animationDuration"]
+  thickness?: number
+  backgroundColor?: string
+  textColor?: string
+  borderColor?: string
+}
 
-const StarBorder = <T extends React.ElementType = 'button'>({
+export default function StarBorder<T extends ElementType = "button">({
   as,
-  className = '',
-  color = 'white',
+  className,
+  color = "#ffdc32",
   secondaryColor = color,
-  speed = '6s',
-  thickness = 1,
-  backgroundColor = '#000000',
-  textColor = '#ffffff',
-  borderColor = '#222222',
+  speed = "6s",
+  thickness = 2,
+  backgroundColor = "#ffffff",
+  textColor = "#171714",
+  borderColor = "#d6d6cd",
   children,
+  style,
   ...rest
-}: StarBorderProps<T>) => {
-  const Component = as || 'button';
-
+}: StarBorderProps<T>) {
+  const Component: ElementType = as || "button"
   return (
     <Component
-      className={`star-border relative inline-block rounded-[20px] ${className}`}
-      {...(rest as any)}
-      style={{
-        '--star-border-color': color,
-        '--star-border-secondary-color': secondaryColor,
-        '--star-border-speed': speed,
-        '--star-border-thickness': `${thickness}px`,
-        ...(rest as any).style
-      } as React.CSSProperties}
+      {...(Component === "button" ? { type: "button" } : {})}
+      {...rest}
+      className={cn("star-border", className)}
+      style={
+        {
+          "--star-border-color": color,
+          "--star-border-secondary-color": secondaryColor,
+          "--star-border-speed": speed,
+          "--star-border-thickness": `${thickness}px`,
+          "--star-border-background": backgroundColor,
+          "--star-border-text": textColor,
+          "--star-border-base": borderColor,
+          ...style,
+        } as CSSProperties
+      }
     >
       <span aria-hidden="true" className="star-border-glow" />
-      <div
-        className="relative z-[1] rounded-[inherit] border px-[26px] py-[16px] text-center text-[16px]"
-        style={{ background: backgroundColor, color: textColor, borderColor }}
-      >
-        {children}
-      </div>
+      <span className="star-border-content">{children}</span>
     </Component>
-  );
-};
-
-export default StarBorder;
+  )
+}
