@@ -1,11 +1,11 @@
 import { useLayoutEffect, useRef, useState, type FormEvent } from "react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ArrowUpRight, Mail } from "lucide-react"
+import { ArrowUpRight, MessageCircle } from "lucide-react"
 import AnimatedContent from "@/components/AnimatedContent"
 import { PageContainer } from "@/components/PageContainer"
 import { Button } from "@/components/ui/button"
-import { buildServiceEmail } from "@/lib/service-enquiry"
-import { business, emailHref } from "@/content/business"
+import { buildServiceWhatsApp } from "@/lib/service-enquiry"
+import { business } from "@/content/business"
 import { developmentServices, formatPackagePrice } from "@/content/services"
 import type { SelectService } from "./ServiceDetail"
 
@@ -41,8 +41,8 @@ export function ServicesEnquiry({
     extraServices.find((item) => item.id === selectedService)?.name ??
     "Help me choose"
   const plan = service?.packages?.find((item) => item.name === selectedPackage)
-  const mailto = buildServiceEmail({
-    recipient: business.email,
+  const whatsappUrl = buildServiceWhatsApp({
+    recipient: business.whatsappUrl,
     name,
     email,
     service: serviceName,
@@ -54,7 +54,7 @@ export function ServicesEnquiry({
   })
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (formRef.current?.reportValidity()) window.location.href = mailto
+    if (formRef.current?.reportValidity()) window.location.href = whatsappUrl
   }
   return (
     <section
@@ -71,12 +71,12 @@ export function ServicesEnquiry({
             Let’s build it.
           </h2>
           <p>Tell me what you’re planning. I’ll help you find the right fit.</p>
-          <a href={emailHref} className="services-direct-email">
+          <a href={business.whatsappUrl} className="services-direct-whatsapp">
             <span>
-              <Mail size={23} aria-hidden="true" />
+              <MessageCircle size={23} aria-hidden="true" />
             </span>
             <span>
-              Prefer to reach out directly?<strong>{business.email}</strong>
+              Prefer to reach out directly?<strong>Chat on WhatsApp</strong>
             </span>
           </a>
         </AnimatedContent>
@@ -183,11 +183,11 @@ export function ServicesEnquiry({
                 />
               </label>
               <Button type="submit" className="button button-dark">
-                Continue via email
+                Continue via WhatsApp
                 <ArrowUpRight size={17} aria-hidden="true" />
               </Button>
-              <p className="services-email-note">
-                Opens your email app with your project details. Review and send
+              <p className="services-whatsapp-note">
+                Opens WhatsApp with your project details. Review and send
                 when ready.
               </p>
             </form>

@@ -25,7 +25,7 @@ export default function FallingText({
   text = "",
   items,
   trigger = "auto",
-  gravity = 2.5,
+  gravity = 0.8,
 }: FallingTextProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -44,6 +44,9 @@ export default function FallingText({
         chip.style.left = ""
         chip.style.top = ""
         chip.style.transform = ""
+        chip.style.width = ""
+        chip.style.height = ""
+        chip.style.willChange = ""
       })
       if (!activated || media.matches) return
       const bounds = container.getBoundingClientRect()
@@ -51,20 +54,32 @@ export default function FallingText({
       if (!width || !height) return
       const engine = Matter.Engine.create({ enableSleeping: true })
       engine.gravity.y = gravity
-      const bodies = chips.map((chip) => {
+      // Measure the complete grid before taking any cards out of flex layout.
+      const layouts = chips.map((chip) => {
         const rect = chip.getBoundingClientRect()
-        return Matter.Bodies.rectangle(
-          rect.left - bounds.left + rect.width / 2,
-          rect.top - bounds.top + rect.height / 2,
-          rect.width,
-          rect.height,
+        return {
+          x: rect.left - bounds.left,
+          y: rect.top - bounds.top,
+          width: rect.width,
+          height: rect.height,
+        }
+      })
+      const bodies = layouts.map(({ x, y, width, height }, index) => {
+        const body = Matter.Bodies.rectangle(
+          x + width / 2,
+          y + height / 2,
+          width,
+          height,
           {
-            restitution: 0.45,
-            friction: 0.5,
-            frictionAir: 0.025,
+            restitution: 0.2,
+            friction: 0.65,
+            frictionAir: 0.035,
             chamfer: { radius: 10 },
           }
         )
+        // A small sideways drift keeps the drop from forming rigid columns.
+        Matter.Body.setVelocity(body, { x: Math.sin(index * 1.7) * 0.35, y: 0 })
+        return body
       })
       Matter.Composite.add(engine.world, [
         ...bodies,
@@ -79,14 +94,21 @@ export default function FallingText({
         }),
         Matter.Bodies.rectangle(width / 2, -25, width, 50, { isStatic: true }),
       ])
+      chips.forEach((chip, index) => {
+        Object.assign(chip.style, {
+          position: "absolute",
+          left: "0",
+          top: "0",
+          width: `${layouts[index].width}px`,
+          height: `${layouts[index].height}px`,
+          willChange: "transform",
+        })
+      })
       const draw = () =>
         bodies.forEach((body, index) => {
-          Object.assign(chips[index].style, {
-            position: "absolute",
-            left: `${body.position.x}px`,
-            top: `${body.position.y}px`,
-            transform: `translate(-50%, -50%) rotate(${body.angle}rad)`,
-          })
+          const { width, height } = layouts[index]
+          chips[index].style.transform =
+            `translate3d(${body.position.x - width / 2}px, ${body.position.y - height / 2}px, 0) rotate(${body.angle}rad)`
         })
       draw()
       Matter.Events.on(engine, "afterUpdate", draw)

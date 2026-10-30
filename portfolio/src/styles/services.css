@@ -1021,7 +1021,7 @@ details[open] > summary .services-disclosure-closed {
   color: #5f521d;
   margin-top: 28px;
 }
-.services-direct-email {
+.services-direct-whatsapp {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -1030,7 +1030,7 @@ details[open] > summary .services-disclosure-closed {
   line-height: 1.7;
   color: #66581d;
 }
-.services-direct-email > span:first-child {
+.services-direct-whatsapp > span:first-child {
   display: grid;
   place-items: center;
   width: 48px;
@@ -1040,7 +1040,7 @@ details[open] > summary .services-disclosure-closed {
   color: var(--ink);
   flex-shrink: 0;
 }
-.services-direct-email strong {
+.services-direct-whatsapp strong {
   display: block;
   font-size: 16px;
   color: var(--ink);
@@ -1125,7 +1125,7 @@ details[open] > summary .services-disclosure-closed {
   width: 100%;
   margin-top: 24px;
 }
-.services-email-note {
+.services-whatsapp-note {
   font-size: 10px;
   line-height: 1.8;
   color: #858578;
@@ -1547,10 +1547,10 @@ details[open] > summary .services-disclosure-closed {
     font-size: 15px;
     margin-top: 22px;
   }
-  .services-direct-email {
+  .services-direct-whatsapp {
     margin-top: 25px;
   }
-  .services-direct-email strong {
+  .services-direct-whatsapp strong {
     font-size: 15px;
   }
   .services-enquiry-panel {

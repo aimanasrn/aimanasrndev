@@ -36,7 +36,7 @@ RM20,000+. Individual Landing Page tier delivery dates, Mini LMS pricing and
 other unspecified costs are confirmed by quotation.
 
 Package and service enquiry buttons preselect the enquiry form. The form
-validates locally and opens the visitor's email app with the project details
+validates locally and opens WhatsApp with the project details
 for review and sending. It does not send or store submissions on a server.
 The hero uses the WhatsApp URL from `src/content/business.ts` when configured,
 and otherwise links to the enquiry section.

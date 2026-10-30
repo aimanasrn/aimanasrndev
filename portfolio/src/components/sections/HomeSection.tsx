@@ -1,12 +1,17 @@
-import { ArrowDown, ArrowUpRight, Asterisk, MessageCircle } from "lucide-react"
+import { ArrowUpRight, MessageCircle } from "lucide-react"
 import { PageContainer } from "@/components/PageContainer"
 import RotatingText from "@/components/RotatingText"
 import StarBorder from "@/components/StarBorder"
 import { business } from "@/content/business"
 import AnimatedContent from "@/components/AnimatedContent"
+import CurvedLoop from "@/components/CurvedLoop"
+import ReflectiveCard from "@/components/ReflectiveCard"
 
 const heroWords = ["software.", "websites.", "web apps.", "systems."]
-const complementaryCapabilities = [
+const disciplines = [
+  "Full-stack development",
+  "Enterprise systems",
+  "AI-assisted workflows",
   "API integrations",
   "Cloud deployment",
   "Database design",
@@ -131,47 +136,40 @@ export function HomeSection() {
                 />
               </svg>
             </div>
-            <figure className="portrait-frame">
-              <img
-                src="/aimanasrndevprofile.png"
-                alt="Muhammad Aiman, software developer based in Malaysia"
-                width={1254}
-                height={1254}
-                fetchPriority="high"
-              />
-              <figcaption>
-                <strong>Muhammad Aiman</strong>
-                <span>Software Developer · Malaysia</span>
-              </figcaption>
-            </figure>
+            <ReflectiveCard
+              className="portrait-reflective-card"
+              imageSrc="/aimanasrndevprofile.png"
+              imageAlt="Muhammad Aiman, software developer based in Malaysia"
+              width="100%"
+              height="auto"
+              radius="230px 230px 22px 22px"
+              theme="light"
+              tiltStrength={5}
+              shine={0.6}
+              glare={0.35}
+              intro={false}
+              imageCaption={
+                <>
+                  <strong>Muhammad Aiman</strong>
+                  <span>Software Developer · Malaysia</span>
+                </>
+              }
+            />
           </AnimatedContent>
         </div>
         <AnimatedContent className="hero-disciplines" staggerIndex={3}>
-          <span>Full-stack development</span>
-          <Asterisk aria-hidden="true" />
-          <span>Enterprise systems</span>
-          <Asterisk aria-hidden="true" />
-          <span>AI-assisted workflows</span>
-          <a
-            href="#about"
-            className="hero-scroll"
-            aria-label="Explore about me"
-          >
-            <ArrowDown size={20} />
-          </a>
-        </AnimatedContent>
-        <AnimatedContent className="hero-complementary" staggerIndex={4}>
-          <p className="section-label" id="complementary-capabilities-heading">
-            Complementary capabilities
-          </p>
-          <ul aria-labelledby="complementary-capabilities-heading">
-            {complementaryCapabilities.map((capability) => (
-              <li key={capability}>
-                <Asterisk size={16} aria-hidden="true" />
-                <span>{capability}</span>
-              </li>
-            ))}
-          </ul>
+          <CurvedLoop
+            marqueeText={disciplines}
+            shape="line"
+            speed={2.0}
+            fontSize={27}
+            fontWeight={750}
+            letterSpacing={-1.2}
+            itemSpacing={20}
+            separator="✱"
+            separatorColor="var(--yellow)"
+            pauseOnHover
+          />
         </AnimatedContent>
       </PageContainer>
     </section>
