@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/PageContainer"
-import AnimatedContent from "@/components/AnimatedContent"
+import { SectionHeading } from "@/components/SectionHeading"
 import type { Project } from "@/components/projects/ProjectCard"
 import { ProjectShowcase } from "@/components/projects/ProjectShowcase"
 
@@ -157,20 +157,19 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="section projects-section section-ruled"
+      className="section projects-section"
       aria-labelledby="projects-heading"
     >
       <PageContainer className="projects-container">
-        <AnimatedContent className="projects-heading">
-          <p className="section-label">05 / Selected work</p>
-          <h2 id="projects-heading">
-            Less talk. <span className="highlight">More shipped.</span>
-          </h2>
-          <p className="projects-intro">
-            Six products shaped around clear problems, thoughtful interfaces,
-            and dependable engineering.
-          </p>
-        </AnimatedContent>
+        <SectionHeading
+          id="projects-heading"
+          label="Selected work"
+          description="Six products shaped around clear problems, thoughtful interfaces, and dependable engineering."
+        >
+          Less talk.
+          <br />
+          <span className="text-gradient">More shipped.</span>
+        </SectionHeading>
 
         <ProjectShowcase projects={projects} />
       </PageContainer>

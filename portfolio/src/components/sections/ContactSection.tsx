@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from "lucide-react"
+import { ArrowUpRight, Mail, MessageCircle } from "lucide-react"
 import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons"
 import { BusinessDetails } from "@/components/BusinessDetails"
 import { PageContainer } from "@/components/PageContainer"
@@ -29,55 +29,71 @@ export function ContactSection() {
       aria-labelledby="contact-heading"
     >
       <PageContainer>
-        <AnimatedContent as="p" className="section-label">
-          06 / Say hello
-        </AnimatedContent>
-        <div className="contact-layout">
-          <AnimatedContent className="contact-intro">
-            <h2 id="contact-heading">
-              Your next idea.
-              <br />
-              Let’s build it.
-            </h2>
-            <p>
-              Have a product idea, a platform to improve, or a system challenge
-              to solve? I’d be happy to talk through it.
-            </p>
-            <a className="button button-dark" href={emailHref}>
-              Start a conversation
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-          </AnimatedContent>
-          <AnimatedContent className="contact-links" staggerIndex={1}>
-            {links.map(({ label, value, href, icon: Icon }) => (
-              <a
-                className="contact-link"
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  href.startsWith("http") ? "noopener noreferrer" : undefined
-                }
-              >
-                <Icon aria-hidden="true" />
-                <span>
-                  <span className="contact-link-label">{label}</span>
-                  <span className="contact-link-value">{value}</span>
-                </span>
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            ))}
-          </AnimatedContent>
-        </div>
-        <div className="contact-business-row">
-          <div>
-            <AnimatedContent>
-              <h3>Business information</h3>
-              <p className="contact-business-owner">{business.owner}</p>
-            </AnimatedContent>
-            <BusinessDetails />
+        <AnimatedContent className="contact-card">
+          <div className="contact-card-glow" aria-hidden="true" />
+          <div className="contact-layout">
+            <div className="contact-intro">
+              <p className="section-label">Say hello</p>
+              <h2 id="contact-heading">
+                Your next idea.
+                <br />
+                <span className="text-gradient">Let’s build it.</span>
+              </h2>
+              <p>
+                Have a product idea, a platform to improve, or a system
+                challenge to solve? I’d be happy to talk through it.
+              </p>
+              <div className="contact-actions">
+                <a className="button button-accent" href={emailHref}>
+                  Start a conversation
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+                {business.whatsappUrl && (
+                  <a
+                    className="button button-outline"
+                    href={business.whatsappUrl}
+                  >
+                    <MessageCircle size={17} aria-hidden="true" />
+                    WhatsApp
+                  </a>
+                )}
+              </div>
+            </div>
+            <div className="contact-links">
+              {links.map(({ label, value, href, icon: Icon }) => (
+                <a
+                  className="contact-link"
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    href.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                >
+                  <span className="contact-link-icon">
+                    <Icon aria-hidden="true" />
+                  </span>
+                  <span className="contact-link-text">
+                    <span className="contact-link-label">{label}</span>
+                    <span className="contact-link-value">{value}</span>
+                  </span>
+                  <ArrowUpRight
+                    className="contact-link-arrow"
+                    aria-hidden="true"
+                  />
+                </a>
+              ))}
+            </div>
           </div>
-          <AnimatedContent className="contact-policies" staggerIndex={1}>
+        </AnimatedContent>
+
+        <div className="contact-business-row">
+          <AnimatedContent className="card">
+            <h3>Business information</h3>
+            <p className="contact-business-owner">{business.owner}</p>
+            <BusinessDetails />
+          </AnimatedContent>
+          <AnimatedContent className="card contact-policies" staggerIndex={1}>
             <h3>Before we work together</h3>
             <p>
               Clear expectations, from the first conversation to the final

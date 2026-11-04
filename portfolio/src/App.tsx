@@ -1,4 +1,10 @@
-import { lazy, Suspense, useEffect, useSyncExternalStore } from "react"
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useSyncExternalStore,
+  type PointerEvent,
+} from "react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { PolicyPage } from "@/components/PolicyPage"
 import { SiteHeader } from "@/components/SiteHeader"
@@ -24,6 +30,19 @@ function subscribeToLocation(callback: () => void) {
     window.removeEventListener("popstate", callback)
   }
 }
+// Cards marked with data-spotlight get a soft glow that follows the cursor.
+function trackSpotlight(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType !== "mouse") return
+  const card =
+    event.target instanceof Element
+      ? event.target.closest<HTMLElement>("[data-spotlight]")
+      : null
+  if (!card) return
+  const rect = card.getBoundingClientRect()
+  card.style.setProperty("--mx", `${event.clientX - rect.left}px`)
+  card.style.setProperty("--my", `${event.clientY - rect.top}px`)
+}
+
 const getLocation = () => window.location.pathname + window.location.hash
 
 export function App() {
@@ -79,7 +98,11 @@ export function App() {
   }, [hash, policySlug, isServices, pathname])
 
   return (
-    <div className="portfolio" onClick={handleInternalNavigation}>
+    <div
+      className="portfolio"
+      onClick={handleInternalNavigation}
+      onPointerMove={trackSpotlight}
+    >
       <a
         className="skip-link"
         href="#main-content"
@@ -102,7 +125,7 @@ export function App() {
           <Suspense
             fallback={
               <PageContainer className="grid min-h-[60vh] items-center py-16">
-                <p role="status" className="text-sm text-[#6c6c66]">
+                <p role="status" className="text-sm text-muted-foreground">
                   Loading services…
                 </p>
               </PageContainer>
@@ -115,9 +138,9 @@ export function App() {
             <HomeSection />
             <AboutSection />
             <ExperienceSection />
-            <StackSection />
-            <ExpertiseSection />
             <ProjectsSection />
+            <ExpertiseSection />
+            <StackSection />
             <ContactSection />
           </>
         )}

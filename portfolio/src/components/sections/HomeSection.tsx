@@ -1,177 +1,214 @@
-import { ArrowUpRight, MessageCircle } from "lucide-react"
+import type { ReactNode } from "react"
+import { ArrowDown, ArrowUpRight, MapPin, MessageCircle } from "lucide-react"
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "motion/react"
 import { PageContainer } from "@/components/PageContainer"
 import RotatingText from "@/components/RotatingText"
-import StarBorder from "@/components/StarBorder"
+import { TechMarquee } from "@/components/TechMarquee"
 import { business } from "@/content/business"
-import AnimatedContent from "@/components/AnimatedContent"
-import CurvedLoop from "@/components/CurvedLoop"
-import ReflectiveCard from "@/components/ReflectiveCard"
 
 const heroWords = ["software.", "websites.", "web apps.", "systems."]
-const disciplines = [
-  "Full-stack development",
-  "Enterprise systems",
-  "AI-assisted workflows",
-  "API integrations",
-  "Cloud deployment",
-  "Database design",
-  "Responsive web design",
-  "Maintenance & support",
-]
+const ease = [0.22, 1, 0.36, 1] as const
+
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode
+  delay?: number
+  className?: string
+}) {
+  const reduceMotion = useReducedMotion()
+  return (
+    <motion.div
+      className={className}
+      initial={
+        reduceMotion ? false : { opacity: 0, y: 24, filter: "blur(8px)" }
+      }
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.9, delay, ease }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function Portrait() {
+  const reduceMotion = useReducedMotion()
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), {
+    stiffness: 160,
+    damping: 18,
+  })
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 160,
+    damping: 18,
+  })
+
+  return (
+    <motion.div
+      className="hero-portrait"
+      style={reduceMotion ? undefined : { rotateX, rotateY }}
+      onPointerMove={(event) => {
+        if (event.pointerType !== "mouse") return
+        const rect = event.currentTarget.getBoundingClientRect()
+        x.set((event.clientX - rect.left) / rect.width - 0.5)
+        y.set((event.clientY - rect.top) / rect.height - 0.5)
+      }}
+      onPointerLeave={() => {
+        x.set(0)
+        y.set(0)
+      }}
+    >
+      <div className="hero-portrait-frame">
+        <img
+          src="/aimanasrndevprofile.png"
+          alt="Muhammad Aiman, software developer based in Malaysia"
+          width={1254}
+          height={1254}
+          fetchPriority="high"
+        />
+        <div className="hero-portrait-caption">
+          <div>
+            <strong>Muhammad Aiman</strong>
+            <span>Software Developer</span>
+          </div>
+          <span className="hero-portrait-location">
+            <MapPin size={13} aria-hidden="true" />
+            Malaysia
+          </span>
+        </div>
+      </div>
+      <motion.div
+        className="hero-chip hero-chip-top"
+        aria-hidden="true"
+        animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <span className="hero-chip-icon">✦</span>
+        Available for freelance
+      </motion.div>
+      <motion.div
+        className="hero-chip hero-chip-bottom"
+        aria-hidden="true"
+        animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.6,
+        }}
+      >
+        <span className="hero-chip-code">{"</>"}</span>
+        Full-stack · Enterprise
+      </motion.div>
+    </motion.div>
+  )
+}
 
 export function HomeSection() {
   return (
-    <section id="home" aria-labelledby="hero-heading">
+    <section id="home" className="hero" aria-labelledby="hero-heading">
+      <div className="hero-backdrop" aria-hidden="true">
+        <div className="hero-grid" />
+        <div className="hero-glow hero-glow-a" />
+        <div className="hero-glow hero-glow-b" />
+      </div>
       <PageContainer>
         <div className="hero-layout">
           <div className="hero-copy">
-            <AnimatedContent className="hero-availability">
+            <Reveal>
               <span
-                className="availability-badge availability-badge-work"
+                className="availability-badge"
                 title="Open to full-time or contract opportunities"
               >
-                <span className="availability-status-dot" aria-hidden="true">
-                  <span className="absolute inset-0 rounded-full bg-[#28834b] opacity-75 motion-safe:animate-ping" />
-                </span>
+                <span className="availability-dot" aria-hidden="true" />
                 Open to work
+                <span className="availability-divider" aria-hidden="true" />
+                <span className="availability-muted">Full-time & contract</span>
               </span>
-            </AnimatedContent>
-            <AnimatedContent
-              as="h1"
-              staggerIndex={1}
+            </Reveal>
+
+            <h1
               id="hero-heading"
               aria-label="Good ideas. Great software, websites, web apps, and systems."
             >
-              Good ideas.
-              <br />
-              <span className="hero-highlight" aria-hidden="true">
-                <span>Great</span>
-                <span className="highlight hero-rotating-slot">
-                  {heroWords.map((word) => (
-                    <span className="hero-rotating-sizer" key={word}>
-                      {word}
-                    </span>
-                  ))}
-                  <RotatingText
-                    texts={heroWords}
-                    mainClassName="hero-rotating-text"
-                    splitBy="lines"
-                    effect="slide"
-                    rotationInterval={2500}
-                    transition={{
-                      type: "tween",
-                      duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    pauseOnHover
-                  />
+              <Reveal delay={0.08}>
+                <span aria-hidden="true">Good ideas.</span>
+              </Reveal>
+              <Reveal delay={0.18}>
+                <span className="hero-highlight" aria-hidden="true">
+                  <span>Great</span>
+                  <span className="hero-rotating-slot">
+                    {heroWords.map((word) => (
+                      <span className="hero-rotating-sizer" key={word}>
+                        {word}
+                      </span>
+                    ))}
+                    <RotatingText
+                      texts={heroWords}
+                      mainClassName="hero-rotating-text"
+                      splitBy="characters"
+                      effect="blur"
+                      staggerDuration={0.025}
+                      rotationInterval={2600}
+                      pauseOnHover
+                    />
+                  </span>
                 </span>
-              </span>
-            </AnimatedContent>
-            <AnimatedContent as="p" staggerIndex={2}>
-              I’m Aiman, a software developer based in Malaysia.
-              <br className="hero-break" /> I turn complex challenges into
-              thoughtful digital experiences — from the first idea to the final
-              line of code.
-            </AnimatedContent>
-            <AnimatedContent className="hero-actions" staggerIndex={3}>
+              </Reveal>
+            </h1>
+
+            <Reveal delay={0.28}>
+              <p className="hero-lede">
+                I’m Aiman, a software developer based in Malaysia. I turn
+                complex challenges into thoughtful digital experiences — from
+                the first idea to the final line of code.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.38} className="hero-actions">
               <a
-                className="button button-dark hero-project-cta"
+                className="button button-dark"
                 href={business.whatsappUrl || "#contact"}
               >
-                <MessageCircle size={18} aria-hidden="true" />
+                <MessageCircle size={17} aria-hidden="true" />
                 Let’s discuss your project
-                <ArrowUpRight size={18} aria-hidden="true" />
               </a>
-              <StarBorder
-                as="a"
-                className="button button-outline"
-                href="#projects"
-              >
-                View selected work <ArrowUpRight size={18} aria-hidden="true" />
-              </StarBorder>
-            </AnimatedContent>
-            <AnimatedContent
-              as="p"
-              className="hero-hiring"
+              <a className="button button-outline" href="#projects">
+                View selected work
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </a>
+            </Reveal>
 
-              staggerIndex={4}
-            >
-              Hiring for your team? <a href="#contact">Let’s talk.</a>
-            </AnimatedContent>
+            <Reveal delay={0.46}>
+              <p className="hero-hiring">
+                Hiring for your team? <a href="#contact">Let’s talk →</a>
+              </p>
+            </Reveal>
           </div>
-          <AnimatedContent className="hero-portrait" staggerIndex={2}>
-            <div className="portrait-freelance-note">
-              <span>
-                Available for
-                <br />
-                freelance projects
-              </span>
-              <svg
-                viewBox="0 0 72 64"
-                fill="none"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M9 7C5 27 16 49 57 49M57 49 44 40M57 49 43 55"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <div className="portrait-note" aria-hidden="true">
-              The person
-              <br />
-              behind the pixels
-              <svg viewBox="0 0 80 76" fill="none">
-                <path
-                  d="M65 4c13 28-8 49-48 54m0 0 15-16M17 58l21 8"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <ReflectiveCard
-              className="portrait-reflective-card"
-              imageSrc="/aimanasrndevprofile.png"
-              imageAlt="Muhammad Aiman, software developer based in Malaysia"
-              width="100%"
-              height="auto"
-              radius="230px 230px 22px 22px"
-              theme="light"
-              tiltStrength={5}
-              shine={0.6}
-              glare={0.35}
-              intro={false}
-              imageCaption={
-                <>
-                  <strong>Muhammad Aiman</strong>
-                  <span>Software Developer · Malaysia</span>
-                </>
-              }
-            />
-          </AnimatedContent>
+
+          <Reveal delay={0.2} className="hero-media">
+            <Portrait />
+          </Reveal>
         </div>
-        <AnimatedContent className="hero-disciplines" staggerIndex={3}>
-          <CurvedLoop
-            marqueeText={disciplines}
-            shape="line"
-            speed={2.0}
-            fontSize={27}
-            fontWeight={750}
-            letterSpacing={-1.2}
-            itemSpacing={20}
-            separator="✱"
-            separatorColor="var(--yellow)"
-            pauseOnHover
-          />
-        </AnimatedContent>
       </PageContainer>
+
+      <Reveal delay={0.55} className="hero-marquee">
+        <p className="hero-marquee-label">Tools I build with</p>
+        <TechMarquee />
+      </Reveal>
+
+      <a className="scroll-cue" href="#about" aria-label="Scroll to about">
+        <ArrowDown size={16} aria-hidden="true" />
+      </a>
     </section>
   )
 }

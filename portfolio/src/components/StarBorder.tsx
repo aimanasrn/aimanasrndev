@@ -25,13 +25,13 @@ type StarBorderProps<T extends ElementType> = Omit<
 export default function StarBorder<T extends ElementType = "button">({
   as,
   className,
-  color = "#ffdc32",
+  color = "var(--accent)",
   secondaryColor = color,
   speed = "6s",
   thickness = 2,
-  backgroundColor = "#ffffff",
-  textColor = "#171714",
-  borderColor = "#d6d6cd",
+  backgroundColor = "var(--surface)",
+  textColor = "var(--fg)",
+  borderColor = "var(--border-strong)",
   children,
   style,
   ...rest

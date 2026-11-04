@@ -6,6 +6,7 @@ import AnimatedContent from "@/components/AnimatedContent"
 const groups = [
   {
     title: "Frontend",
+    blurb: "Interfaces that feel fast, clear and accessible.",
     icon: Monitor,
     tools: [
       "React",
@@ -21,6 +22,7 @@ const groups = [
   },
   {
     title: "Backend",
+    blurb: "APIs and services built to be dependable.",
     icon: Code2,
     tools: [
       "Node.js",
@@ -35,11 +37,13 @@ const groups = [
   },
   {
     title: "Database",
+    blurb: "Data models that stay sane as products grow.",
     icon: Database,
     tools: ["PostgreSQL", "Supabase", "MySQL", "SQLite", "DB2", "SQL"],
   },
   {
     title: "Testing & tools",
+    blurb: "Quality checks and delivery, from laptop to production.",
     icon: Wrench,
     tools: [
       "Playwright",
@@ -63,28 +67,30 @@ export function ExpertiseSection() {
       <PageContainer>
         <SectionHeading
           id="capabilities-heading"
-          label="04 / Capabilities"
-          description="Tools chosen for the work at hand."
+          label="Capabilities"
+          description="Tools chosen for the work at hand — not the other way around."
         >
           The right skills.
           <br />
-          For the right solution<span className="yellow-dot">.</span>
+          For the right solution<span className="accent-dot">.</span>
         </SectionHeading>
         <div className="capability-grid">
-          {groups.map(({ title, icon: Icon, tools }, index) => (
+          {groups.map(({ title, blurb, icon: Icon, tools }, index) => (
             <AnimatedContent
               as="article"
-              className="capability"
+              className="card capability"
               key={title}
               staggerIndex={index}
+              data-spotlight
             >
               <div className="capability-top">
-                <span className="capability-icon">
-                  <Icon size={26} strokeWidth={1.8} aria-hidden="true" />
+                <span className="card-icon card-icon-lg">
+                  <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <span>0{index + 1}</span>
+                <span className="capability-count">{tools.length} tools</span>
               </div>
               <h3>{title}</h3>
+              <p>{blurb}</p>
               <ul className="tag-list">
                 {tools.map((tool) => (
                   <li key={tool}>{tool}</li>

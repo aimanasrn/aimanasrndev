@@ -1,40 +1,98 @@
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
-  --font-sans: "Geist Variable", sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, monospace;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-fg);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--fg);
+  --color-accent: var(--surface-2);
+  --color-accent-foreground: var(--fg);
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--fg-muted);
   --color-border: var(--border);
-  --color-input: var(--border);
+  --color-input: var(--border-strong);
   --color-ring: var(--ring);
-  --color-card: var(--background);
-  --color-card-foreground: var(--foreground);
-  --color-popover: var(--background);
-  --color-popover-foreground: var(--foreground);
-  --color-destructive: #b52d25;
+  --color-card: var(--surface);
+  --color-card-foreground: var(--fg);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--fg);
+  --color-destructive: #e5484d;
   --radius-md: 12px;
 }
+
+/*
+ * Design tokens. Components should only use the semantic names below, so
+ * every surface adapts to light and dark themes automatically.
+ */
 :root {
-  font-family: "Geist Variable", sans-serif;
-  color: #171714;
-  background: #fff;
-  --yellow: #ffdc32;
-  --ink: #171714;
-  --background: #fff;
-  --foreground: #171714;
-  --primary: #ffdc32;
-  --primary-foreground: #171714;
-  --secondary: #f5f5f2;
-  --accent: #fff4ac;
-  --muted: #f5f5f2;
-  --muted-foreground: #6c6c66;
-  --border: #e0e0da;
-  --ring: #9b7c00;
+  color-scheme: light;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f3f3f1;
+  --surface-3: #ebebe8;
+  --fg: #0c0c0d;
+  --fg-muted: #5f5f5c;
+  --fg-subtle: #8a8a86;
+  --border: #e7e7e4;
+  --border-strong: #d6d6d2;
+  --accent: #ffd43b;
+  --accent-fg: #141204;
+  --accent-soft: #fff7d1;
+  --accent-text: #8a6a00;
+  --accent-glow: rgb(255 212 59 / 0.35);
+  --inverse-bg: #0c0c0d;
+  --inverse-fg: #fafaf9;
+  --ring: #a07c00;
+  --success: #1f9d55;
+  --overlay: rgb(12 12 13 / 0.55);
+  --header-bg: rgb(255 255 255 / 0.72);
+  --grid-line: rgb(12 12 13 / 0.05);
+  --shadow-sm: 0 1px 2px rgb(12 12 13 / 0.05);
+  --shadow-md: 0 8px 24px -8px rgb(12 12 13 / 0.12);
+  --shadow-lg: 0 30px 80px -20px rgb(12 12 13 / 0.25);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Legacy aliases used by older stylesheets. */
+  --ink: var(--fg);
+  --yellow: var(--accent);
+  --background: var(--bg);
+  --foreground: var(--fg);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-fg);
+  --secondary: var(--surface-2);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--fg-muted);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #09090b;
+  --surface: #111113;
+  --surface-2: #18181b;
+  --surface-3: #232327;
+  --fg: #f4f4f5;
+  --fg-muted: #a1a1aa;
+  --fg-subtle: #71717a;
+  --border: #232327;
+  --border-strong: #303036;
+  --accent: #ffd43b;
+  --accent-fg: #141204;
+  --accent-soft: rgb(255 212 59 / 0.1);
+  --accent-text: #ffd43b;
+  --accent-glow: rgb(255 212 59 / 0.18);
+  --inverse-bg: #f4f4f5;
+  --inverse-fg: #09090b;
+  --ring: #ffd43b;
+  --success: #3ecf8e;
+  --overlay: rgb(0 0 0 / 0.7);
+  --header-bg: rgb(17 17 19 / 0.7);
+  --grid-line: rgb(255 255 255 / 0.045);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 30px 80px -20px rgb(0 0 0 / 0.8);
 }

@@ -1,6 +1,15 @@
-import { BriefcaseBusiness, Check, Download, Settings2 } from "lucide-react"
+import {
+  BriefcaseBusiness,
+  Check,
+  Download,
+  Rocket,
+  Settings2,
+  Sparkles,
+} from "lucide-react"
 import { PageContainer } from "@/components/PageContainer"
+import { SectionHeading } from "@/components/SectionHeading"
 import AnimatedContent from "@/components/AnimatedContent"
+import { CountUp } from "@/components/CountUp"
 
 const background = [
   "Software developer",
@@ -15,25 +24,40 @@ const approach = [
   "Using AI-assisted development to accelerate delivery",
   "Maintaining engineering quality",
 ]
+const stats = [
+  {
+    value: 4,
+    suffix: "",
+    label: "Engineering roles across government & fintech",
+  },
+  { value: 6, suffix: "", label: "Products shipped and featured below" },
+  { value: 19, suffix: "+", label: "Technologies in my everyday toolkit" },
+]
 
 export function AboutSection() {
   return (
     <section id="about" className="section" aria-labelledby="about-heading">
       <PageContainer>
-        <AnimatedContent as="p" className="section-label">
-          01 / About me
-        </AnimatedContent>
-        <div className="about-layout">
-          <AnimatedContent className="about-intro">
-            <h2 id="about-heading">
-              A developer’s mind.
-              <br />
-              <span className="underline-yellow">A builder’s heart.</span>
-            </h2>
-            <p>
+        <SectionHeading
+          id="about-heading"
+          label="About me"
+          description="Practical software for real problems, built with care from first idea to final handover."
+        >
+          A developer’s mind.
+          <br />
+          <span className="text-gradient">A builder’s heart.</span>
+        </SectionHeading>
+
+        <div className="bento about-bento">
+          <AnimatedContent className="card about-intro" data-spotlight>
+            <span className="card-icon">
+              <Sparkles size={18} aria-hidden="true" />
+            </span>
+            <p className="about-intro-text">
               I’m a Malaysian software developer who enjoys building practical
-              software that solves real problems. I’ve worked across government
-              systems, fintech and independent products, turning business
+              software that solves real problems. I’ve worked across{" "}
+              <strong>government systems</strong>, <strong>fintech</strong> and{" "}
+              <strong>independent products</strong>, turning business
               requirements into reliable, user-friendly solutions.
             </p>
             <a
@@ -41,10 +65,27 @@ export function AboutSection() {
               href="/Muhammad%20Aiman%20Bin%20Kanasronsham_resume.pdf"
               download="Muhammad Aiman Bin Kanasronsham_resume.pdf"
             >
-              <Download size={18} aria-hidden="true" />
+              <Download size={17} aria-hidden="true" />
               Download resume
             </a>
           </AnimatedContent>
+
+          <AnimatedContent
+            className="card about-stats"
+            staggerIndex={1}
+            data-spotlight
+          >
+            {stats.map(({ value, suffix, label }) => (
+              <div className="stat" key={label}>
+                <span className="stat-value">
+                  <CountUp to={value} />
+                  {suffix}
+                </span>
+                <span className="stat-label">{label}</span>
+              </div>
+            ))}
+          </AnimatedContent>
+
           {[
             {
               title: "Professional background",
@@ -54,28 +95,39 @@ export function AboutSection() {
             { title: "Working approach", icon: Settings2, items: approach },
           ].map(({ title, icon: Icon, items }, index) => (
             <AnimatedContent
-              className="about-list"
+              className="card about-list"
               key={title}
-              staggerIndex={index + 1}
+              staggerIndex={index + 2}
+              data-spotlight
             >
               <h3>
-                <span className="small-icon">
-                  <Icon size={20} aria-hidden="true" />
+                <span className="card-icon">
+                  <Icon size={18} aria-hidden="true" />
                 </span>
                 {title}
               </h3>
               <ul>
                 {items.map((item) => (
                   <li key={item}>
-                    <span className="check-icon">
-                      <Check size={13} strokeWidth={2.5} aria-hidden="true" />
-                    </span>
+                    <Check size={15} strokeWidth={2.5} aria-hidden="true" />
                     {item}
                   </li>
                 ))}
               </ul>
             </AnimatedContent>
           ))}
+
+          <AnimatedContent
+            className="card about-cta"
+            staggerIndex={4}
+            data-spotlight
+          >
+            <Rocket size={20} aria-hidden="true" />
+            <p>
+              Have a website or system in mind?
+              <a href="/services">See services & pricing →</a>
+            </p>
+          </AnimatedContent>
         </div>
       </PageContainer>
     </section>
