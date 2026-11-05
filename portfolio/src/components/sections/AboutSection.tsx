@@ -62,8 +62,8 @@ export function AboutSection() {
             </p>
             <a
               className="button button-dark"
-              href="/Muhammad%20Aiman%20Bin%20Kanasronsham_resume.pdf"
-              download="Muhammad Aiman Bin Kanasronsham_resume.pdf"
+              href="/Muhammad_Aiman_Resume.pdf"
+              download="Muhammad_Aiman_Resume.pdf"
             >
               <Download size={17} aria-hidden="true" />
               Download resume
