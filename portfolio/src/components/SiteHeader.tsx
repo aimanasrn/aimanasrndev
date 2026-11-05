@@ -16,9 +16,11 @@ const links = [
 export function SiteHeader({
   isPolicy,
   isServices = false,
+  isProject = false,
 }: {
   isPolicy: boolean
   isServices?: boolean
+  isProject?: boolean
 }) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState("")
@@ -34,7 +36,7 @@ export function SiteHeader({
   }, [])
 
   useEffect(() => {
-    if (isPolicy || isServices) return
+    if (isPolicy || isServices || isProject) return
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -47,23 +49,28 @@ export function SiteHeader({
       .querySelectorAll("main > section[id]")
       .forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [isPolicy, isServices])
+  }, [isPolicy, isServices, isProject])
 
+  // Project pages have no in-page sections, so every link goes home.
   const hrefFor = (id: string) =>
     id === "services"
       ? "/services"
-      : `${isServices && id !== "contact" ? "/" : ""}#${id}`
+      : `${isProject || (isServices && id !== "contact") ? "/" : ""}#${id}`
 
   const currentFor = (id: string) =>
     isPolicy
       ? undefined
-      : isServices
-        ? id === "services"
-          ? ("page" as const)
+      : isProject
+        ? id === "projects"
+          ? ("true" as const)
           : undefined
-        : active === id
-          ? ("location" as const)
-          : undefined
+        : isServices
+          ? id === "services"
+            ? ("page" as const)
+            : undefined
+          : active === id
+            ? ("location" as const)
+            : undefined
 
   useEffect(() => {
     if (!open) return
@@ -92,7 +99,7 @@ export function SiteHeader({
       <PageContainer className="header-inner">
         <a
           className="wordmark"
-          href={isServices ? "/#home" : "#home"}
+          href={isServices || isProject ? "/#home" : "#home"}
           aria-label="AIMANASRN home"
           onClick={() => setOpen(false)}
         >
@@ -126,7 +133,10 @@ export function SiteHeader({
 
         <div className="header-actions">
           <ThemeToggle />
-          <a className="button button-dark header-cta" href="#contact">
+          <a
+            className="button button-dark header-cta"
+            href={hrefFor("contact")}
+          >
             Let’s talk
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>

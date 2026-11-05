@@ -28,7 +28,8 @@ export function handleInternalNavigation(event: MouseEvent<HTMLElement>) {
   )
     return
   const route = destination.pathname.replace(/\/+$/, "") || "/"
-  if (route !== "/" && route !== "/services") return
+  if (route !== "/" && route !== "/services" && !route.startsWith("/projects/"))
+    return
   event.preventDefault()
   window.history.pushState(
     null,

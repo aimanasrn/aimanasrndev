@@ -15,8 +15,10 @@ import { ExpertiseSection } from "@/components/sections/ExpertiseSection"
 import { ExperienceSection } from "@/components/sections/ExperienceSection"
 import { HomeSection } from "@/components/sections/HomeSection"
 import { ProjectsSection } from "@/components/sections/ProjectsSection"
+import { ProjectPage } from "@/components/projects/ProjectPage"
 import { StackSection } from "@/components/sections/StackSection"
 import { getPolicySlug, policyLinks } from "@/content/business"
+import { getProjectBySlug, getProjectSlug } from "@/content/projects"
 import { handleInternalNavigation } from "@/lib/navigation"
 import { PageContainer } from "@/components/PageContainer"
 
@@ -55,6 +57,7 @@ export function App() {
   const hash = location.slice(pathname.length)
   const isServices = pathname.replace(/\/+$/, "") === "/services"
   const policySlug = getPolicySlug(hash)
+  const projectSlug = getProjectSlug(pathname)
 
   useEffect(() => {
     let cancelled = false
@@ -69,9 +72,11 @@ export function App() {
   useEffect(() => {
     document.title = policySlug
       ? `${policyLinks.find(({ slug }) => slug === policySlug)!.label} — AIMANASRN`
-      : isServices
-        ? "Web Development Services & Pricing — AIMANASRN"
-        : "Muhammad Aiman — Software Developer"
+      : projectSlug
+        ? `${getProjectBySlug(projectSlug)?.name ?? "Project not found"} — AIMANASRN`
+        : isServices
+          ? "Web Development Services & Pricing — AIMANASRN"
+          : "Muhammad Aiman — Software Developer"
     const frame = requestAnimationFrame(() => {
       ScrollTrigger.refresh()
       if (policySlug) {
@@ -88,14 +93,17 @@ export function App() {
         })
       } else {
         window.scrollTo({ top: 0, behavior: "instant" })
-        if (isServices)
-          document
-            .getElementById("services-heading")
-            ?.focus({ preventScroll: true })
+        const heading = isServices
+          ? "services-heading"
+          : projectSlug
+            ? "project-heading"
+            : null
+        if (heading)
+          document.getElementById(heading)?.focus({ preventScroll: true })
       }
     })
     return () => cancelAnimationFrame(frame)
-  }, [hash, policySlug, isServices, pathname])
+  }, [hash, policySlug, isServices, projectSlug, pathname])
 
   return (
     <div
@@ -117,10 +125,13 @@ export function App() {
         key={policySlug ? "policy" : pathname}
         isPolicy={Boolean(policySlug)}
         isServices={isServices}
+        isProject={Boolean(projectSlug)}
       />
       <main id="main-content" tabIndex={-1}>
         {policySlug ? (
           <PolicyPage slug={policySlug} />
+        ) : projectSlug ? (
+          <ProjectPage key={projectSlug} slug={projectSlug} />
         ) : isServices ? (
           <Suspense
             fallback={

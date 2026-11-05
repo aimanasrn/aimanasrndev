@@ -71,7 +71,7 @@ export function ServicesHero() {
               </span>
             </div>
             <img
-              src="/projects/didikflowdashboard.webp"
+              src="/projects/didikflow/didikflowdashboard.webp"
               alt="DidikFlow, an education management dashboard built by Aiman"
               width={1920}
               height={1080}
