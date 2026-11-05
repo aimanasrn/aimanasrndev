@@ -28,10 +28,8 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={
-        reduceMotion ? false : { opacity: 0, y: 24, filter: "blur(8px)" }
-      }
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, delay, ease }}
     >
       {children}
@@ -69,7 +67,7 @@ function Portrait() {
     >
       <div className="hero-portrait-frame">
         <img
-          src="/aimanasrndevprofile.png"
+          src="/aimanasrndevprofile.webp"
           alt="Muhammad Aiman, software developer based in Malaysia"
           width={1254}
           height={1254}
@@ -86,29 +84,14 @@ function Portrait() {
           </span>
         </div>
       </div>
-      <motion.div
-        className="hero-chip hero-chip-top"
-        aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <div className="hero-chip hero-chip-top" aria-hidden="true">
         <span className="hero-chip-icon">✦</span>
         Available for freelance
-      </motion.div>
-      <motion.div
-        className="hero-chip hero-chip-bottom"
-        aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.6,
-        }}
-      >
+      </div>
+      <div className="hero-chip hero-chip-bottom" aria-hidden="true">
         <span className="hero-chip-code">{"</>"}</span>
         Full-stack · Enterprise
-      </motion.div>
+      </div>
     </motion.div>
   )
 }

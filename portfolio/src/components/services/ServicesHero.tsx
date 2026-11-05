@@ -71,7 +71,7 @@ export function ServicesHero() {
               </span>
             </div>
             <img
-              src="/projects/didikflowdashboard.png"
+              src="/projects/didikflowdashboard.webp"
               alt="DidikFlow, an education management dashboard built by Aiman"
               width={1920}
               height={1080}
@@ -87,7 +87,7 @@ export function ServicesHero() {
             <Code2 size={20} aria-hidden="true" />
             <span className="services-phone-brand">aimanasrn.dev</span>
             <img
-              src="/aimanasrndevprofile.png"
+              src="/aimanasrndevprofile.webp"
               alt=""
               width={1254}
               height={1254}

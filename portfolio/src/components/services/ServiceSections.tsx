@@ -134,7 +134,7 @@ export function LearningSolution({ onSelect }: { onSelect: SelectService }) {
               <span />
             </div>
             <img
-              src="/projects/didikflowdashboard.png"
+              src="/projects/didikflowdashboard.webp"
               alt="Related work: DidikFlow education management dashboard"
               width={1920}
               height={1080}

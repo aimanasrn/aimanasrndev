@@ -31,7 +31,7 @@ const projects = [
       "Tailwind CSS",
       "Supabase PostgreSQL",
     ],
-    image: "/projects/didikflowdashboard.png",
+    image: "/projects/didikflowdashboard.webp",
     imageAlt:
       "DidikFlow education management dashboard showing active students, today's classes, attendance rate, outstanding fees, and tuition centre navigation",
     imageWidth: 1920,
@@ -52,7 +52,7 @@ const projects = [
       "WhatsApp enquiries",
     ],
     technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase"],
-    image: "/projects/sukaroomhomestay.png",
+    image: "/projects/sukaroomhomestay.webp",
     imageAlt:
       "Suka Room & Homestay booking website showing accommodation options, availability search, and bilingual navigation",
     imageWidth: 1920,
@@ -73,7 +73,7 @@ const projects = [
       "Transaction management",
     ],
     technologies: ["React", "Vite", "Supabase"],
-    image: "/projects/softspend.png",
+    image: "/projects/softspend.webp",
     imageAlt:
       "SoftSpend dashboard showing spending, budget progress, savings, and expense categories",
     imageWidth: 1920,
@@ -102,7 +102,7 @@ const projects = [
       "SQLite",
       "jsPDF",
     ],
-    image: "/projects/novainvoice.png",
+    image: "/projects/novainvoice.webp",
     imageAlt:
       "Nova Invoice interface showing its dashboard, invoice builder, client directory, and PDF output",
     imageWidth: 2752,
@@ -124,7 +124,7 @@ const projects = [
       "WhatsApp CTA",
     ],
     technologies: ["React", "Tailwind CSS", "Vite"],
-    image: "/projects/koperat.png",
+    image: "/projects/koperat.webp",
     imageAlt:
       "KOPERAT corporate property website showing housing projects, company information, testimonials, and contact options",
     imageWidth: 1536,
@@ -145,7 +145,7 @@ const projects = [
       "WhatsApp integration",
     ],
     technologies: ["React", "Tailwind CSS", "Vite"],
-    image: "/projects/alfahmulc.png",
+    image: "/projects/alfahmulc.webp",
     imageAlt:
       "Al-Fahmu Learning Centre website showing its programmes, learning approach, contact form, and WhatsApp enquiry option",
     imageWidth: 1672,
