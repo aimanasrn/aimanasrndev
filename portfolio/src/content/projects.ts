@@ -41,6 +41,59 @@ export interface Project {
 
 export const projects: readonly Project[] = [
   {
+    slug: "rakan-space",
+    name: "RakanSpace",
+    category: "Team Workspace Platform",
+    year: 2026,
+    summary:
+      "A multi-organisation workspace bringing team chat, projects, tasks, calendars, announcements, and files together.",
+    description:
+      "RakanSpace is a multi-organisation workspace built around the idea of \"Satu ruang. Satu pasukan.\" Teams chat in real time, run projects and tasks, plan on a shared calendar, and share announcements and files, with role-based access and business modules for approvals, forms, timesheets, helpdesk, and sales opportunities.",
+    flow: [
+      {
+        title: "Set up the organisation",
+        detail:
+          "Create an organisation, set up a profile, and invite teammates as Owner, Admin, Manager, or Staff, grouped into departments.",
+      },
+      {
+        title: "Collaborate in real time",
+        detail:
+          "Teams talk in public and private channels or direct messages, with replies, @mentions, attachments, and live notifications.",
+      },
+      {
+        title: "Plan and track work",
+        detail:
+          "Projects hold tasks with assignees and checklists in list or Kanban views, and deadlines appear on the shared calendar.",
+      },
+      {
+        title: "Run business workflows",
+        detail:
+          "Modules from the app launcher handle multi-step approvals, form building, weekly timesheets, helpdesk tickets, and the sales pipeline.",
+      },
+    ],
+    technologies: [
+      "Next.js",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "TanStack Query",
+      "Laravel 13",
+      "Laravel Reverb",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+    ],
+    plannedEnhancements: [
+      "Bahasa Melayu translation",
+      "Attendance, leave balances, and expense claims",
+      "External calendar integrations",
+    ],
+    github: "https://github.com/aimanasrn/rakan-space",
+    imageAlt:
+      "RakanSpace overview dashboard showing open tasks, overdue items, active projects, upcoming deadlines, and workspace navigation",
+  },
+  {
     slug: "didikflow",
     name: "DidikFlow",
     category: "Education Management SaaS",
