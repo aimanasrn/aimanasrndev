@@ -41,6 +41,60 @@ export interface Project {
 
 export const projects: readonly Project[] = [
   {
+    slug: "print-desk",
+    name: "PrintDesk",
+    category: "Order Management System",
+    year: 2026,
+    summary:
+      "Order management for printing and signage shops, from first enquiry and quotation through artwork approval, production, payment, and collection.",
+    description:
+      "PrintDesk is an order management system for Malaysian printing and signage shops. It follows each job from enquiry to quotation, customer acceptance, artwork and customer approval, production and QC, payment, and finally collection or delivery. Staff work in role-based views for owners, sales, designers, production, and cashiers, while customers accept quotations and approve artwork through secure portal links.",
+    flow: [
+      {
+        title: "Quote the job",
+        detail:
+          "Sales turn an enquiry into a quotation with a PDF, and the customer accepts it from a portal link verified by an email code.",
+      },
+      {
+        title: "Approve the artwork",
+        detail:
+          "Designers upload proofs to the order, and the customer approves them or asks for changes through their own portal link.",
+      },
+      {
+        title: "Run production",
+        detail:
+          "Jobs move across a drag-and-drop production board through printing and QC, with reminders for deadlines and pending approvals.",
+      },
+      {
+        title: "Collect and hand over",
+        detail:
+          "The cashier records payments and closes each order on collection or delivery, while the dashboard tracks the shop's numbers.",
+      },
+    ],
+    technologies: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS 4",
+      "TanStack Query",
+      "dnd-kit",
+      "Recharts",
+      "Django 6",
+      "Django REST Framework",
+      "PostgreSQL 17",
+      "ReportLab",
+      "Docker",
+    ],
+    plannedEnhancements: [
+      "Malware scanning for uploaded artwork",
+      "Partial handovers and split deliveries",
+      "Automated WhatsApp notifications",
+    ],
+    github: "https://github.com/aimanasrn/printing-order-management",
+    imageAlt:
+      "PrintDesk title card with the tagline 'From quote to collection.' and a 'Run your next job in PrintDesk' button",
+  },
+  {
     slug: "rakan-space",
     name: "RakanSpace",
     category: "Team Workspace Platform",
